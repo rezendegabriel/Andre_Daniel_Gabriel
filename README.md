@@ -6,7 +6,7 @@ Trabalho Prático | DCC061 - Engenharia de Software | 2021.1 - ERE | UFJF
 
  * **Daniel Augusto Machado Baeta**
  
- * **Gabriel**
+ * **Gabriel Rezende da Silva**
 
 Instruções Iniciais:
 
