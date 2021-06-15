@@ -4,7 +4,7 @@ Trabalho Prático | DCC061 - Engenharia de Software | 2021.1 - ERE | UFJF
 
  * **André Luiz dos Reis**
 
- * **Daniel**
+ * **Daniel Augusto Machado Baeta**
  
  * **Gabriel**
 
