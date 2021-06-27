@@ -15,4 +15,9 @@ class HomeController extends Controller
     {
         return view('\loginForm');
     }
+
+    public function login(Request $request)
+    {
+        var_dump( expression: $request->all());
+    }
 }
