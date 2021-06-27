@@ -51,16 +51,12 @@
                             <div class="card-body">
                                 <h5 class="card-title">pré-Cálculo</h5>
                                 <p class="card-text">Descrição de coisas que nós queremos mostrar dentro do card.</p>
-                                <a href="/disciplina" class="btn btn-primary">Visitar</a>
+                                <a href="/disciplina" class="form-btn">Visitar</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <a href="/cadastroDisciplina" class="btn btn-primary">Adicionar Disciplina</a>
-                            </div>
-                        </div>
+                        <a href="/cadastroDisciplina" class="form-btn">Adicionar Disciplina</a>
                     </div>
                 </div>
 				
