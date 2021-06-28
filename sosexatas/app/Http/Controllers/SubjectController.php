@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Disciplina;
 use App\Models\Topico;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Cast\Array_;
 
 class SubjectController extends Controller
 {
@@ -16,10 +17,20 @@ class SubjectController extends Controller
         //$topicos = Topico::where('idTop', 1);
 
         $topicos = $disciplina->topicos;
+        $subtopicos = [];
+
+        $i = 0;
+        foreach( $topicos as $top){
+            $subtopicos[$i] = $top->subtopicos;
+            $i++;
+            //$subtopicos[$i] = $topicos[1]->subtopicos;
+            //$i++;
+        }
 
         //$topicos = [  ['a','b'], ['c'] ];
 
-        return view('\subject', ['disciplina' => $disciplina, 'topicos' => $topicos]);
+        return view('\subject', ['disciplina' => $disciplina, 'topicos' => $topicos,
+                'subtopicos' => $subtopicos]);
     }
 
     public function showQuizz()

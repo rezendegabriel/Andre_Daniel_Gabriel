@@ -55,9 +55,9 @@
                         <input id="topico{{$loop->index + 1}}" type="checkbox">
                         <label for="topico{{$loop->index + 1}}" class="topic-table">{{$top->nomeTop}}</label>
                         <table cellspacing="0">
-                            @foreach([1,2,3] as $sub)
-                            <tr class="subtopic-table" >
-                                <td>Subtopico: {{$sub}}</td>
+                            @foreach($subtopicos[$loop->index] as $sub)
+                            <tr style="margin:10px" class="subtopic-table" >
+                                <td >{{$sub->nomeSubTop}}</td>
                             </tr>
                             @endforeach
                         </table>

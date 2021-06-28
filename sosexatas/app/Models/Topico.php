@@ -25,6 +25,14 @@ class Topico extends Model
         return $this->belongsTo('App\Models\Disciplina');
     }
 
+    public function subtopicos(){
+        return $this->hasMany('App\Models\Subtopico', 'fk_Topico_id');
+    }
+
+    public function materiais(){
+        return $this->hasMany('App\Models\MaterialDidatico', 'fk_Topico_id');
+    }
+
 }
 
 
