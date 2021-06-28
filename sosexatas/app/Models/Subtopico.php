@@ -20,7 +20,7 @@ class Subtopico extends Model
 
     public $timestamps = false;
 
-    public function topico(){
+    public function subtopico(){
         return $this->belongsTo('App\Models\Topico');
     }
 }

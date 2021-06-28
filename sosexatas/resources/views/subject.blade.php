@@ -54,13 +54,40 @@
                     <div class="table-aguardo">
                         <input id="topico{{$loop->index + 1}}" type="checkbox">
                         <label for="topico{{$loop->index + 1}}" class="topic-table">{{$top->nomeTop}}</label>
+
+
                         <table cellspacing="0">
-                            @foreach($subtopicos[$loop->index] as $sub)
+                        <tr> <th>Material Didático</th> </tr>
+                        @if(count($materiais[$loop->index]) > 0)
+                            @foreach($materiais[$loop->index] as $mat)
                             <tr style="margin:10px" class="subtopic-table" >
-                                <td >{{$sub->nomeSubTop}}</td>
+                                <td >{{$mat->nome}}</td>
                             </tr>
                             @endforeach
+                        @else
+                        <tr style="margin:10px" class="subtopic-table" >
+                                <td >Poxa, não temos materiais didáticos aqui (ainda) :/</td>
+                        </tr>
+                        @endif
                         </table>
+
+                        <table cellspacing="0">
+                        <tr> <th>Conteúdo</th> </tr>
+                        @if(count($subtopicos[$loop->index]) > 0)
+                            @foreach($subtopicos[$loop->index] as $sub)
+                            <tr style="margin:10px" class="subtopic-table" >
+                            <td> {{$sub->nomeSubTop}}</td>
+                            </tr>
+                            @endforeach
+                        @else
+                        <tr style="margin:10px" class="subtopic-table" >
+                                <td >Poxa, não temos conteúdo aqui (ainda) :/</td>
+                        </tr>
+                        @endif
+                        </table>
+
+
+
                     </div>
                     @endforeach
 

@@ -18,10 +18,12 @@ class SubjectController extends Controller
 
         $topicos = $disciplina->topicos;
         $subtopicos = [];
+        $materiais = [];
 
         $i = 0;
         foreach( $topicos as $top){
             $subtopicos[$i] = $top->subtopicos;
+            $materiais[$i] = $top->materiais;
             $i++;
             //$subtopicos[$i] = $topicos[1]->subtopicos;
             //$i++;
@@ -30,7 +32,7 @@ class SubjectController extends Controller
         //$topicos = [  ['a','b'], ['c'] ];
 
         return view('\subject', ['disciplina' => $disciplina, 'topicos' => $topicos,
-                'subtopicos' => $subtopicos]);
+                'subtopicos' => $subtopicos, 'materiais' => $materiais]);
     }
 
     public function showQuizz()
