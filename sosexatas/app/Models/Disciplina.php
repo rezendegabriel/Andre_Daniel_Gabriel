@@ -19,4 +19,18 @@ class Disciplina extends Model
     public $timestamps = false;
 
     use HasFactory;
+
+    public function topicos(){
+        return $this->hasMany('App\Models\Topico', 'fk_Disciplina_id');
+    }
+
+    public function disciplina(){
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function disciplinas(){
+        return $this->belongsToMany('App\Models\User');
+    }
 }
+
+

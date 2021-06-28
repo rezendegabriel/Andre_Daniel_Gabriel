@@ -40,4 +40,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function disciplinasOfUser(){
+        return $this->belongsToMany('App\Models\Disciplinas');
+    }
 }
+

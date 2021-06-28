@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Disciplina;
+use App\Models\Topico;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -11,7 +12,12 @@ class SubjectController extends Controller
     {
         $disciplina = Disciplina::findOrFail($id);
 
-        $topicos = [  ['a','b'], ['c'] ];
+
+        //$topicos = Topico::where('idTop', 1);
+
+        $topicos = $disciplina->topicos;
+
+        //$topicos = [  ['a','b'], ['c'] ];
 
         return view('\subject', ['disciplina' => $disciplina, 'topicos' => $topicos]);
     }

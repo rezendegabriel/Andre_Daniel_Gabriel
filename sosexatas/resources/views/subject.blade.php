@@ -48,12 +48,14 @@
 						{{$disciplina->nomeDisc}}
 					</span>
 
+                    @if(count($topicos) > 0)
+
                     @foreach($topicos as $top)
                     <div class="table-aguardo">
                         <input id="topico{{$loop->index + 1}}" type="checkbox">
-                        <label for="topico{{$loop->index + 1}}" class="topic-table">Tópico {{$loop->index + 1}}</label>
+                        <label for="topico{{$loop->index + 1}}" class="topic-table">{{$top->nomeTop}}</label>
                         <table cellspacing="0">
-                            @foreach($top as $sub)
+                            @foreach([1,2,3] as $sub)
                             <tr class="subtopic-table" >
                                 <td>Subtopico: {{$sub}}</td>
                             </tr>
@@ -61,6 +63,13 @@
                         </table>
                     </div>
                     @endforeach
+
+                    @else
+                    <div class="table-aguardo">
+                        <input id="" type="">
+                        <label for="" class="topic-table">Sem tópicos criados (ainda)!</label>
+                    </div>
+                    @endif
 
 					<div class="text-center p-t-12">
                         <a class="txt2" href="/home">
