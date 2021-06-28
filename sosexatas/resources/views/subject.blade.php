@@ -21,7 +21,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SOS - EXATAS</title>
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="/login/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/login/vendor/bootstrap/css/bootstrap.min.css">
@@ -29,7 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/login/vendor/animate/animate.css">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/login/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/login/vendor/select2/select2.min.css">
@@ -39,41 +39,29 @@
 <!--===============================================================================================-->
 </head>
 <body>
-	
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap">
 				<form class="inputSubject-form">
 					<span class="form-title">
-						Nome da disciplina
+						{{$disciplina->nomeDisc}}
 					</span>
 
+                    @foreach($topicos as $top)
                     <div class="table-aguardo">
-                        <input id="topico1" type="checkbox">
-                        <label for="topico1" class="topic-table">Tópico 1</label>
+                        <input id="topico{{$loop->index + 1}}" type="checkbox">
+                        <label for="topico{{$loop->index + 1}}" class="topic-table">Tópico {{$loop->index + 1}}</label>
                         <table cellspacing="0">
-                            <tr class="subtopic-table">
-                                <td>Subtopico 1.1</td>
+                            @foreach($top as $sub)
+                            <tr class="subtopic-table" >
+                                <td>Subtopico: {{$sub}}</td>
                             </tr>
-                            <tr class="subtopic-table">
-                                <td>Subtopico 1.2</td>
-                            </tr>
+                            @endforeach
                         </table>
                     </div>
-                    <div class="table-aguardo">
-                        <input id="topico2" type="checkbox">
-                        <label for="topico2" class="topic-table">Tópico 2</label>
-                        <table cellspacing="0">
-                            <tr class="subtopic-table">
-                                <td>Subtopico 2.1</td>
-                            </tr>
-                            <tr class="subtopic-table">
-                                <td>Subtopico 2.2</td>
-                            </tr>
-                        </table>
-                    </div>
-                    
-                    
+                    @endforeach
+
 					<div class="text-center p-t-12">
                         <a class="txt2" href="/home">
                             <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
@@ -84,11 +72,11 @@
 			</div>
 		</div>
 	</div>
-	
-	
 
-	
-<!--===============================================================================================-->	
+
+
+
+<!--===============================================================================================-->
 	<script src="/login/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 	<script src="/login/vendor/bootstrap/js/popper.js"></script>

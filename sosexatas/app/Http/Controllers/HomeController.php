@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Disciplina;
+
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('\home');
+        $disciplina = Disciplina::all();
+
+        return view('\home', ['disciplina' => $disciplina]);
     }
 
     public function showLoginForm()
@@ -18,6 +22,17 @@ class HomeController extends Controller
 
     public function login(Request $request)
     {
-        var_dump( expression: $request->all());
+        //var_dump( expression: $request->all());
     }
+
+
+    public function showDisciplinas()
+    {
+
+        $disciplinas = Disciplina::all();
+
+
+        return view('\home', ['disciplinas' => $disciplinas] );
+    }
+
 }

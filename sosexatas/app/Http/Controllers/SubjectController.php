@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Disciplina;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-    public function showSubject()
+    public function show($id)
     {
-        return view('\subject');
+        $disciplina = Disciplina::findOrFail($id);
+
+        $topicos = [  ['a','b'], ['c'] ];
+
+        return view('\subject', ['disciplina' => $disciplina, 'topicos' => $topicos]);
     }
 
     public function showQuizz()

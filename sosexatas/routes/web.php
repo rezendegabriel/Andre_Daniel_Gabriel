@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,11 +25,15 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/home/login', 'App\Http\Controllers\HomeController@showLoginForm')->name('home.login');
 //Route::post('/home/login/do', 'App\Http\Controllers\HomeController@login')->name('home.login.do');
 
+Route::post('/disciplinaInsertBD', [RegisterController::class, 'store']);
+
 Route::get('/cadastroUsuario', 'App\Http\Controllers\RegisterController@registerUser')->name('registerUser');
 
 Route::get('/cadastroDisciplina', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
 
-Route::get('/disciplina', 'App\Http\Controllers\SubjectController@showSubject')->name('subject'); //como fazer o acesso dinâmico?
+Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show']);
+
+//Route::get('/disciplina/{$id}', 'App\Http\Controllers\SubjectController@showSubject')->name('subject'); //como fazer o acesso dinâmico?
 
 Route::get('/disciplina/quizz', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz'); //como fazer o acesso dinâmico?
 //Route::post('/quizz/do', 'App\Http\Controllers\QuizzController@takeQuizz');
