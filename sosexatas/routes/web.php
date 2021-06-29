@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
+Route::get('/home/{id}', 'App\Http\Controllers\HomeController@indexUsuario')->name('home');
+
 Route::get('/home/login', 'App\Http\Controllers\HomeController@showLoginForm')->name('home.login');
 //Route::post('/home/login/do', 'App\Http\Controllers\HomeController@login')->name('home.login.do');
 
