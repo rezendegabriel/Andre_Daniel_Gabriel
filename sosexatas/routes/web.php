@@ -25,11 +25,21 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/home/login', 'App\Http\Controllers\HomeController@showLoginForm')->name('home.login');
 //Route::post('/home/login/do', 'App\Http\Controllers\HomeController@login')->name('home.login.do');
 
-Route::post('/disciplinaInsertBD', [RegisterController::class, 'store']);
 
 Route::get('/cadastroUsuario', 'App\Http\Controllers\RegisterController@registerUser')->name('registerUser');
 
 Route::get('/cadastroDisciplina', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
+Route::post('/disciplinaInsertBD', [RegisterController::class, 'storeSubject']);
+
+Route::get('/cadastroTopico/{id}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
+Route::post('/topicoInsertBD/{id}', [RegisterController::class, 'storeTopic']);
+
+Route::get('/cadastroSubTopico/{idDisciplina}/{idTopico}', 'App\Http\Controllers\RegisterController@registerSubTopic')->name('registerSubTopic');
+Route::post('/subTopicoInsertBD/{idDisciplina}/{idTopico}', [RegisterController::class, 'storeSubTopic']);
+
+Route::get('/cadastroMaterialDidatico/{id}', 'App\Http\Controllers\RegisterController@registerStudyMaterial')->name('registerStudyMaterial');
+Route::post('/materialDidaticoInsertBD/{id}', [RegisterController::class, 'storeStudyMaterial']);
+
 
 Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show']);
 

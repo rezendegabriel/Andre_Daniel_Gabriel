@@ -27,28 +27,28 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap">
-				<form class="inputSubject-form" action="/disciplinaInsertBD" method="POST">
+				<form class="inputSubject-form" action="/topicoInsertBD/{{$disciplinaID}}" method="POST">
                 @csrf <!--===== LARAVEL PRECISA PRO FORM FUNCIONAR ======-->
 					<span class="form-title">
-						Cadastro de Disciplina
+						Cadastro de Tópico
 					</span>
 
                     <div class="wrap-input100 validate-input" >
-						<input class="input100" type="text" name="name" placeholder="Nome da Disciplina" required>
+						<input class="input100" type="text" name="name" placeholder="Nome do Tópico" required>
 						<span class="focus-input100"></span>
 					</div>
 
 
 					<div class="container-form-btn">
                         <button class="form-btn" type="submit">
-                            Criar Disciplina
+                            Criar Tópico
 						</button>
 					</div>
 
 					<div class="text-center p-t-12">
-                        <a class="txt2" href="/home">
+                        <a class="txt2" href="/disciplinaShow/{{$disciplinaID}}">
                         <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
-                        Voltar para tela de Disciplinas
+                        Voltar para tela da Disciplina
                     </a>
                 </div>
 				</form>
