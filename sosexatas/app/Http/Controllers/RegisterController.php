@@ -68,9 +68,9 @@ class RegisterController extends Controller
         $subtopico->nomeSubTop =$request->name;
         $subtopico->fk_Topico_id =$idTopico;
 
-        $disciplina->save();
+        $subtopico->save();
 
-        return  redirect("/disciplinaShow/{$id}")->with('msg', 'Subtopico Adicionado com sucesso!');
+        return  redirect("/disciplinaShow/{$idDisciplina}")->with('msg', 'Subtopico Adicionado com sucesso!');
     }
 
     public function storeStudyMaterial( $id, Request $request)

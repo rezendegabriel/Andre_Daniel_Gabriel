@@ -27,7 +27,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap">
-				<form class="inputSubject-form" action="/subTopicoInsertBD/{{$disciplinaID}}" method="POST">
+				<form class="inputSubject-form" action="/subTopicoInsertBD/{{$disciplinaID}}/{{$topicoId}}" method="POST">
                 @csrf <!--===== LARAVEL PRECISA PRO FORM FUNCIONAR ======-->
 					<span class="form-title">
 						Cadastro de Subtópico
