@@ -39,6 +39,8 @@ class HomeController extends Controller
 
     public function login(Request $request)
     {
+        $disciplina = Disciplina::all();
+        return view('\home' ,['disciplina' => $disciplina]);
         //var_dump( expression: $request->all());
     }
 

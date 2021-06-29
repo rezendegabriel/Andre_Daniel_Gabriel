@@ -46,8 +46,6 @@
 
 	<div class="limiter">
 		<div class="container-login100">
-
-
 			<div class="wrap card-columns">
 
             <a href="/cadastroDisciplina" class="form-btn">Adicionar Disciplina</a> </br>
