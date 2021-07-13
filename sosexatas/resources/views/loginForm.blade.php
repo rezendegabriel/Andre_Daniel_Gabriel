@@ -46,7 +46,8 @@
 					<img src="/login/images/img-01.png" alt="IMG">
 				</div>
 
-				<form class="form validate-form">
+				<form class="form validate-form" action="/doLogin" method="POST">
+				@csrf <!--===== LARAVEL PRECISA PRO FORM FUNCIONAR ======-->
 					<span class="form-title">
 						Member Login
 					</span>
@@ -67,7 +68,7 @@
 						</span>
 					</div>
 					
-					<div class="container-form-btn">
+					<div class="container-form-btn" >
 						<button class="form-btn">
 							Login
 						</button>

@@ -69,6 +69,9 @@
                                 <td >Poxa, não temos materiais didáticos aqui (ainda) :/</td>
                         </tr>
                         @endif
+                        <tr>
+                                <td ><a href="/cadastroMaterialDidatico/{{ $disciplina->idDisc}}" style="margin:10px" class="form-btn">Cadastrar Material Didático</a></td>
+                        </tr>
                         </table>
 
                         <table cellspacing="0">
@@ -84,6 +87,9 @@
                                 <td >Poxa, não temos conteúdo aqui (ainda) :/</td>
                         </tr>
                         @endif
+                        <tr>
+                                <td ><a href="/cadastroSubTopico/{{ $disciplina->idDisc}}/{{ $top->idTop}}" style="margin:10px" class="form-btn">Cadastrar SubTópico</a></td>
+                        </tr>
                         </table>
 
 
@@ -97,6 +103,9 @@
                         <label for="" class="topic-table">Sem tópicos criados (ainda)!</label>
                     </div>
                     @endif
+                    <div>
+                        <a href="/cadastroTopico/{{ $disciplina->idDisc}}" style="margin:10px" class="form-btn">Cadastrar Tópico</a>
+                    </div>
 
 					<div class="text-center p-t-12">
                         <a class="txt2" href="/home">

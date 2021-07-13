@@ -1,20 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SOS - EXATAS</title>
-    </head>
-    <body>
-        <h1>Página Inicial contendo os cards de disciplinas</h1>
-        <a href="/disciplina"> Card da disciplina X</a><br>
-        <a href="/cadastroDisciplina">Cadastrar disciplina</a><br>
-        <a href="/comunidade"> Ver minha comunidade</a><br>
-        <a href="/perfil">Ir para o perfil</a>
-    </body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -37,40 +20,43 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/login/css/main.css">
-
 <!--===============================================================================================-->
 </head>
 <body>
 
-
-
 	<div class="limiter">
 		<div class="container-login100">
-			<div class="wrap card-columns">
+			<div class="wrap">
+				<form class="inputSubject-form" action="/subTopicoInsertBD/{{$disciplinaID}}/{{$topicoId}}" method="POST">
+                @csrf <!--===== LARAVEL PRECISA PRO FORM FUNCIONAR ======-->
+					<span class="form-title">
+						Cadastro de Subtópico
+					</span>
 
-            <a href="/cadastroDisciplina" class="form-btn">Adicionar Disciplina</a> </br>
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="name" placeholder="Nome do Subópico" required>
+						<span class="focus-input100"></span>
+					</div>
 
-                <div class="row">
 
-                    @foreach($disciplina as $disc)
-                    <div class="col-sm-6">
-                        <div class="card ">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $disc->nomeDisc}}</h5>
-                                <p class="card-text">Descrição do progresso do aluno(a), a ser configurado.</p>
-                                <a href="/disciplinaShow/{{ $disc->idDisc}}" class="form-btn">Vamos estudar?</a>
-                            </div>
-                        </div>
-                    </div>
+					<div class="container-form-btn">
+                        <button class="form-btn" type="submit">
+                            Criar Subtópico
+						</button>
+					</div>
 
-                    @endforeach
-
+					<div class="text-center p-t-12">
+                        <a class="txt2" href="/disciplinaShow/{{$disciplinaID}}">
+                        <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
+                        Voltar para tela da Disciplina
+                    </a>
                 </div>
-
-
+				</form>
 			</div>
 		</div>
 	</div>
+
+
 
 
 <!--===============================================================================================-->
@@ -82,8 +68,7 @@
 	<script src="/login/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="/login/vendor/tilt/tilt.jquery.min.js"></script>
-
-    <script >
+	<script >
 		$('.js-tilt').tilt({
 			scale: 1.1
 		})
@@ -92,9 +77,4 @@
 	<script src="/login/js/main.js"></script>
 
 </body>
-
-@if(session('msg'))
-<script> alert("Disciplina criada com sucesso."); </script>
-@endif
-
 </html>

@@ -191,6 +191,7 @@ iframe {
   padding: 177px 130px 33px 95px;
 }
 
+
 /*------------------------------------------------------------------
 [  ]*/
 .pic {
@@ -352,6 +353,7 @@ iframe {
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
+
 
 .form-btn:hover {
   background: #333333;
