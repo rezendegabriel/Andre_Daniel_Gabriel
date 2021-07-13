@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Disciplina;
+use App\Models\User;
 
 use Illuminate\Support\Facades\DB;
 
@@ -39,9 +40,24 @@ class HomeController extends Controller
 
     public function login(Request $request)
     {
-        $disciplina = Disciplina::all();
-        return view('\home' ,['disciplina' => $disciplina]);
-        //var_dump( expression: $request->all());
+        $allUsers = User::all();
+
+        foreach($allUsers as $u){
+            if( $request->email == $u->email && $request->pass == $u->senha){
+                $disciplina = DB::table('disciplina')
+                ->select('disciplina.*')->whereIn('idDisc', DB::table('realiza')
+                ->select('realiza.fk_Disciplina_id')->where('realiza.fk_Usuario_id', $id))
+                ->get();
+                return view('\home' ,['disciplina' => $disciplina]);
+            }else{
+                //
+            }
+        }
+
+
+        echo($request->email);
+        echo($request->pass);
+
     }
 
 
