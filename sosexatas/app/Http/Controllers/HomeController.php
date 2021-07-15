@@ -46,17 +46,13 @@ class HomeController extends Controller
             if( $request->email == $u->email && $request->pass == $u->senha){
                 $disciplina = DB::table('disciplina')
                 ->select('disciplina.*')->whereIn('idDisc', DB::table('realiza')
-                ->select('realiza.fk_Disciplina_id')->where('realiza.fk_Usuario_id', $id))
+                ->select('realiza.fk_Disciplina_id')->where('realiza.fk_Usuario_id', $u->idUsuario))
                 ->get();
                 return view('\home' ,['disciplina' => $disciplina]);
             }else{
                 //
             }
         }
-
-
-        echo($request->email);
-        echo($request->pass);
 
     }
 
