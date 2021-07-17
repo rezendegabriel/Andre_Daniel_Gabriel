@@ -48,7 +48,11 @@
 		<div class="container-login100">
 			<div class="wrap card-columns">
 
-            <a href="/cadastroDisciplina" class="form-btn">Adicionar Disciplina</a> </br>
+            @if(session()->get('tipoUsuario') == 0)
+                <a href="/cadastroDisciplina" class="form-btn">Adicionar Disciplina</a> </br>
+            @endif
+
+            <a href="/logout" class="form-btn">Sair</a> </br>
 
                 <div class="row">
 
