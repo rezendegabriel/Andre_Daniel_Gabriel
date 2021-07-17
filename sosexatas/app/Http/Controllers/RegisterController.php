@@ -16,9 +16,26 @@ class RegisterController extends Controller
         return view('\registerUser');
     }
 
-    public function registerSubject()
+    public function registerSubject($id = 0)
     {
-        return view('\registerSubject');
+        if($id != 0){
+            $disciplina = Disciplina::findOrFail($id);
+
+            return view('\registerSubject', ['disciplina' => $disciplina]);
+        }else{
+            return view('\registerSubject', ['disciplina' => NULL]);
+        }
+
+    }
+
+    public function updateSubject(Request $request, $id)
+    {
+        //Disciplina::findOrFail($id)->update($request->all());
+
+        Disciplina::findOrFail($id)->update(['nomeDisc' => $request->name]);
+
+        return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
+
     }
 
     public function registerTopic($id)
@@ -76,11 +93,11 @@ class RegisterController extends Controller
     public function storeStudyMaterial( $id, Request $request)
     {
         $nameFile = null;
- 
+
         if ($request->hasFile('arquivo') && $request->file('arquivo')->isValid()) {
-            
+
             $name = uniqid(date('HisYmd'));
-    
+
             $extension = $request->image->extension();
 
             $nameFile = "{$name}.{$extension}";
@@ -92,7 +109,7 @@ class RegisterController extends Controller
                             ->back()
                             ->with('error', 'Falha ao fazer upload')
                             ->withInput();
-    
+
         }
 
         $materialDidatico = new MaterialDidatico();

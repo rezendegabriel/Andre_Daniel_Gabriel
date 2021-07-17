@@ -15,9 +15,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
- Route::get('/', function () {
-     return redirect("/home/login");
- });
+Route::group(['middleware' => 'check.login'], function () { //valida a autenticação
+    //Route::auth();
+    //Route::post('/login',['uses'=>'App\Http\Controllers\HomeController@verificaLogin','as' => 'VerificaLogin']);
+    Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show'])->name('showDisc');
+
+    Route::get('/disciplina/quizz', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz'); //como fazer o acesso dinâmico?
+    //Route::post('/quizz/do', 'App\Http\Controllers\QuizzController@takeQuizz');
+    Route::get('/disciplina/quizz/resultado', 'App\Http\Controllers\SubjectController@showQuizzResult')->name('subject.quizz.result');
+
+    Route::get('/disciplina/ranking', 'App\Http\Controllers\SubjectController@showSubjectRanking')->name('subject.ranking');
+
+    Route::get('/comunidade', 'App\Http\Controllers\CommunityController@showFriends')->name('community');
+    //Route::post('/amigos/do', 'App\Http\Controllers\FriendController@addFriend');
+
+    Route::get('/perfil', 'App\Http\Controllers\ProfileController@showProfile')->name('profile');
+
+    Route::group(['middleware' => ['check.permissao']], function () {
+        // Precisa estar autenticado e for adm
+        Route::get('/cadastroTopico/{id}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
+        Route::get('/cadastroDisciplina', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
+        Route::get('/cadastroDisciplina/{id}', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
+        Route::post('/disciplinaInsertBD', [RegisterController::class, 'storeSubject']);
+        Route::put('/disciplinaUpdateBD/{id}', [RegisterController::class, 'updateSubject']);
+
+        Route::post('/topicoInsertBD/{id}', [RegisterController::class, 'storeTopic']);
+
+        Route::get('/cadastroSubTopico/{idDisciplina}/{idTopico}', 'App\Http\Controllers\RegisterController@registerSubTopic')->name('registerSubTopic');
+        Route::post('/subTopicoInsertBD/{idDisciplina}/{idTopico}', [RegisterController::class, 'storeSubTopic']);
+        Route::get('/cadastroMaterialDidatico/{id}', 'App\Http\Controllers\RegisterController@registerStudyMaterial')->name('registerStudyMaterial');
+        Route::post('/materialDidaticoInsertBD/{id}', [RegisterController::class, 'storeStudyMaterial']);
+    });
+});
+
+
+Route::get('/', function () {
+    return redirect("/home/login");
+});
 
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
@@ -32,30 +66,9 @@ Route::get('/home/{id}', 'App\Http\Controllers\HomeController@indexUsuario')->na
 
 Route::get('/cadastroUsuario', 'App\Http\Controllers\RegisterController@registerUser')->name('registerUser');
 
-Route::get('/cadastroDisciplina', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
-Route::post('/disciplinaInsertBD', [RegisterController::class, 'storeSubject']);
-
-Route::get('/cadastroTopico/{id}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
-Route::post('/topicoInsertBD/{id}', [RegisterController::class, 'storeTopic']);
-
-Route::get('/cadastroSubTopico/{idDisciplina}/{idTopico}', 'App\Http\Controllers\RegisterController@registerSubTopic')->name('registerSubTopic');
-Route::post('/subTopicoInsertBD/{idDisciplina}/{idTopico}', [RegisterController::class, 'storeSubTopic']);
-
-Route::get('/cadastroMaterialDidatico/{id}', 'App\Http\Controllers\RegisterController@registerStudyMaterial')->name('registerStudyMaterial');
-Route::post('/materialDidaticoInsertBD/{id}', [RegisterController::class, 'storeStudyMaterial']);
 
 
-Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show']);
+
+//Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show'])->name('showDisc');
 
 //Route::get('/disciplina/{$id}', 'App\Http\Controllers\SubjectController@showSubject')->name('subject'); //como fazer o acesso dinâmico?
-
-Route::get('/disciplina/quizz', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz'); //como fazer o acesso dinâmico?
-//Route::post('/quizz/do', 'App\Http\Controllers\QuizzController@takeQuizz');
-Route::get('/disciplina/quizz/resultado', 'App\Http\Controllers\SubjectController@showQuizzResult')->name('subject.quizz.result');
-
-Route::get('/disciplina/ranking', 'App\Http\Controllers\SubjectController@showSubjectRanking')->name('subject.ranking');
-
-Route::get('/comunidade', 'App\Http\Controllers\CommunityController@showFriends')->name('community');
-//Route::post('/amigos/do', 'App\Http\Controllers\FriendController@addFriend');
-
-Route::get('/perfil', 'App\Http\Controllers\ProfileController@showProfile')->name('profile');

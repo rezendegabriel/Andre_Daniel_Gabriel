@@ -41,8 +41,8 @@ class HomeController extends Controller
 
                 $disciplina = DB::table('disciplina')
                     ->select('disciplina.*')->whereIn('idDisc', DB::table('realiza')
-                    ->select('realiza.fk_Disciplina_id')->where('realiza.fk_Usuario_id', $request->session()->has('idUsuario')))
-                    ->get();
+                    ->select('realiza.fk_Disciplina_id')->where('realiza.fk_Usuario_id', $request->session()->get('idUsuario')))
+                    ->orderBy("nomeDisc")->get();
                     return view('\home' ,['disciplina' => $disciplina]);
                 }else{
                         $disciplina = Disciplina::all();
@@ -91,7 +91,7 @@ class HomeController extends Controller
                     $disciplina = DB::table('disciplina')
                     ->select('disciplina.*')->whereIn('idDisc', DB::table('realiza')
                     ->select('realiza.fk_Disciplina_id')->where('realiza.fk_Usuario_id', $u->idUsuario))
-                    ->get();
+                    ->orderBy("nomeDisc")->get();
                     return view('\home' ,['disciplina' => $disciplina]);
                 }else{
                     $disciplina = Disciplina::all();

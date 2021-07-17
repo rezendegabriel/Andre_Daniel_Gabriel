@@ -24,24 +24,27 @@
 </head>
 <body>
 
-	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap">
-				<form class="inputSubject-form" action="/disciplinaInsertBD" method="POST">
+				<form class="inputSubject-form" action=@if($disciplina)'/disciplinaUpdateBD/{{$disciplina->idDisc}}'@else'/disciplinaInsertBD' @endif method="POST">
                 @csrf <!--===== LARAVEL PRECISA PRO FORM FUNCIONAR ======-->
+                <!--===== @if($disciplina) /disciplinaUpdateBD @else /disciplinaInsertBD @endif ======-->
+                @if($disciplina) @method('PUT') @endif
 					<span class="form-title">
-						Cadastro de Disciplina
+						@if($disciplina) Edição de Disciplina @else Cadastro de Disciplina @endif
 					</span>
 
                     <div class="wrap-input100 validate-input" >
-						<input class="input100" type="text" name="name" placeholder="Nome da Disciplina" required>
+
+						<input class="input100" type="text" name="name" placeholder="Nome da Disciplina" @if($disciplina) value="{{$disciplina->nomeDisc}}@endif" required>
+
 						<span class="focus-input100"></span>
 					</div>
 
 
 					<div class="container-form-btn">
                         <button class="form-btn" type="submit">
-                            Criar Disciplina
+                        @if($disciplina) Alterar Disciplina @else Criar Disciplina @endif
 						</button>
 					</div>
 

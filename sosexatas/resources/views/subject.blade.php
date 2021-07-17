@@ -53,7 +53,10 @@
                     @foreach($topicos as $top)
                     <div class="table-aguardo">
                         <input id="topico{{$loop->index + 1}}" type="checkbox">
-                        <label for="topico{{$loop->index + 1}}" class="topic-table">{{$top->nomeTop}}</label>
+                        <label for="topico{{$loop->index + 1}}" class="topic-table">{{$top->nomeTop}}
+                        @if(session()->get('tipoUsuario') == 0) <a href="#"> <button  style="float: right; margin-left: 5px; " id="close-image"><img src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png"/></button> </a> @endif
+                        @if(session()->get('tipoUsuario') == 0) <a href="#"> <button  style="float: right; margin-left: 5px; " id="close-image"><img src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/></button> </a> @endif
+                        </label>
 
 
                         <table cellspacing="0">
@@ -61,7 +64,11 @@
                         @if(count($materiais[$loop->index]) > 0)
                             @foreach($materiais[$loop->index] as $mat)
                             <tr style="margin:10px" class="subtopic-table" >
-                                <td >{{$mat->nome}}</td>
+                                <td >
+                                @if(session()->get('tipoUsuario') == 0) <a href="#"> <button  style="float: right; margin-left: 5px; " id="close-image"><img src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png"/></button> </a> @endif
+                                @if(session()->get('tipoUsuario') == 0) <a href="#"> <button  style="float: right; margin-left: 5px; " id="close-image"><img src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/></button> </a> @endif
+                                {{$mat->nome}} <button  style="float: right; margin-left: 15px; " id="close-image"><img src="https://img.icons8.com/ios-glyphs/15/000000/download-from-cloud--v1.png"/>
+                                </td>
                             </tr>
                             @endforeach
                         @else
@@ -69,9 +76,13 @@
                                 <td >Poxa, não temos materiais didáticos aqui (ainda) :/</td>
                         </tr>
                         @endif
+
+                        @if(session()->get('tipoUsuario') == 0)
                         <tr>
                                 <td ><a href="/cadastroMaterialDidatico/{{ $disciplina->idDisc}}" style="margin:10px" class="form-btn">Cadastrar Material Didático</a></td>
                         </tr>
+                        @endif
+
                         </table>
 
                         <table cellspacing="0">
@@ -79,7 +90,10 @@
                         @if(count($subtopicos[$loop->index]) > 0)
                             @foreach($subtopicos[$loop->index] as $sub)
                             <tr style="margin:10px" class="subtopic-table" >
-                            <td> {{$sub->nomeSubTop}}</td>
+                            <td> {{$sub->nomeSubTop}}
+                            @if(session()->get('tipoUsuario') == 0) <a href="#"> <button  style="float: right; margin-left: 5px; " id="close-image"><img src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png"/></button> </a> @endif
+                            @if(session()->get('tipoUsuario') == 0) <a href="#"> <button  style="float: right; margin-left: 5px; " id="close-image"><img src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/></button> </a> @endif
+                            </td>
                             </tr>
                             @endforeach
                         @else
@@ -87,9 +101,13 @@
                                 <td >Poxa, não temos conteúdo aqui (ainda) :/</td>
                         </tr>
                         @endif
+
+                        @if(session()->get('tipoUsuario') == 0)
                         <tr>
                                 <td ><a href="/cadastroSubTopico/{{ $disciplina->idDisc}}/{{ $top->idTop}}" style="margin:10px" class="form-btn">Cadastrar SubTópico</a></td>
                         </tr>
+                        @endif
+
                         </table>
 
 
@@ -103,9 +121,12 @@
                         <label for="" class="topic-table">Sem tópicos criados (ainda)!</label>
                     </div>
                     @endif
+
+                    @if(session()->get('tipoUsuario') == 0)
                     <div>
                         <a href="/cadastroTopico/{{ $disciplina->idDisc}}" style="margin:10px" class="form-btn">Cadastrar Tópico</a>
                     </div>
+                    @endif
 
 					<div class="text-center p-t-12">
                         <a class="txt2" href="/home">
