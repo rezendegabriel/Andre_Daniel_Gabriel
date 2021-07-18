@@ -27,21 +27,22 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap">
-				<form class="inputSubject-form" action="/subTopicoInsertBD/{{$disciplinaID}}/{{$topicoId}}" method="POST">
+				<form class="inputSubject-form" action=@if($subtopico)'/subtopicoUpdateBD/{{$disciplinaID}}/{{$topicoId}}/{{$subtopico->idSubTop}}'@else'/subtopicoInsertBD/{{$disciplinaID}}/{{$topicoId}}' @endif action="/topicoInsertBD/{{$disciplinaID}}" method="POST">
                 @csrf <!--===== LARAVEL PRECISA PRO FORM FUNCIONAR ======-->
+                @if($subtopico) @method('PUT') @endif
 					<span class="form-title">
-						Cadastro de Subtópico
+                    @if($subtopico) Alteração Subtópico @else Cadastro de Subtópico @endif
 					</span>
 
                     <div class="wrap-input100 validate-input" >
-						<input class="input100" type="text" name="name" placeholder="Nome do Subópico" required>
+						<input class="input100" type="text" name="name" placeholder="Nome do Subópico" @if($subtopico) value="{{$subtopico->nomeSubTop}}"@endif required>
 						<span class="focus-input100"></span>
 					</div>
 
 
 					<div class="container-form-btn">
                         <button class="form-btn" type="submit">
-                            Criar Subtópico
+                            @if($subtopico) Alterar Subtópico @else Criar Subtópico @endif
 						</button>
 					</div>
 

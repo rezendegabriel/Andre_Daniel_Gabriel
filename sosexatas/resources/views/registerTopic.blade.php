@@ -27,21 +27,22 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap">
-				<form class="inputSubject-form" action="/topicoInsertBD/{{$disciplinaID}}" method="POST">
+				<form class="inputSubject-form" action=@if($topico)'/topicoUpdateBD/{{$disciplinaID}}/{{$topico->idTop}}'@else'/topicoInsertBD/{{$disciplinaID}}' @endif method="POST">
                 @csrf <!--===== LARAVEL PRECISA PRO FORM FUNCIONAR ======-->
+                @if($topico) @method('PUT') @endif
 					<span class="form-title">
-						Cadastro de Tópico
+						@if($topico) Alteração Tópico @else Cadastro de Tópico @endif
 					</span>
 
                     <div class="wrap-input100 validate-input" >
-						<input class="input100" type="text" name="name" placeholder="Nome do Tópico" required>
+						<input class="input100" type="text" name="name" placeholder="Nome do Tópico" @if($topico) value="{{$topico->nomeTop}}"@endif required>
 						<span class="focus-input100"></span>
 					</div>
 
 
 					<div class="container-form-btn">
                         <button class="form-btn" type="submit">
-                            Criar Tópico
+                        @if($topico) Alterar Tópico @else Criar Tópico @endif
 						</button>
 					</div>
 

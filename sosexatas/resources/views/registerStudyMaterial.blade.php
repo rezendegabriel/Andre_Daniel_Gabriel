@@ -27,26 +27,27 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap">
-				<form class="inputSubject-form" action="/materialDidaticoInsertBD/{{$disciplinaID}}" method="POST">
+				<form class="inputSubject-form" action=@if($material)'/materialDidaticoUpdateBD/{{$disciplinaID}}/{{$material->idMat}}'@else'/materialDidaticoInsertBD/{{$disciplinaID}}' @endif method="POST">
                 @csrf <!--===== LARAVEL PRECISA PRO FORM FUNCIONAR ======-->
+                @if($material) @method('PUT') @endif
 					<span class="form-title">
-						Cadastro de Material de Didático
+                    @if($material) Alteração Material de Didático @else Cadastro de Material de Didático @endif
 					</span>
 
                     <div class="wrap-input100 validate-input" >
-						<input class="input100" type="text" name="name" placeholder="Nome do Material de Didático" required>
+						<input class="input100" type="text" name="name" placeholder="Nome do Material de Didático" @if($material) value="{{$material->nome}}"@endif required>
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" enctype=”multipart/form-data”>
 						<label>Arquivo:</label>
-						<input type="file" name="arquivo" />
+						<input type="file" name="arquivo" @if($material) value="{{$material->endArq}}"@endif required/>
 					</div>
 
 
 					<div class="container-form-btn">
                         <button class="form-btn" type="submit">
-                            Criar Material de Didático
+                            @if($material) Alterar Material de Didático @else Criar Material de Didático @endif
 						</button>
 					</div>
 

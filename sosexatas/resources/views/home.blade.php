@@ -66,7 +66,7 @@
                                     <a href="/cadastroDisciplina/{{ $disc->idDisc}}"> <button  style="float: right; margin-left: 5px; " id="close-image"><img src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/></button> </a>
                                     </h5>
                                     <p class="card-text">Descrição da visualização do adm, a ser configurado.</p>
-                                    <a href="#" style="margin:10px" class="form-btn">Explorar</a>
+                                    <a href="/disciplinaShow/{{ $disc->idDisc}}" style="margin:10px" class="form-btn">Explorar</a>
 
                                 @else
                                     <h5 class="card-title">{{ $disc->nomeDisc}}

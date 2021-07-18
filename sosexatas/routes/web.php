@@ -33,18 +33,27 @@ Route::group(['middleware' => 'check.login'], function () { //valida a autentica
 
     Route::group(['middleware' => ['check.permissao']], function () {
         // Precisa estar autenticado e for adm
-        Route::get('/cadastroTopico/{id}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
-        Route::get('/cadastroDisciplina', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
-        Route::get('/cadastroDisciplina/{id}', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
-        Route::post('/disciplinaInsertBD', [RegisterController::class, 'storeSubject']);
-        Route::put('/disciplinaUpdateBD/{id}', [RegisterController::class, 'updateSubject']);
 
-        Route::post('/topicoInsertBD/{id}', [RegisterController::class, 'storeTopic']);
+        Route::get('/cadastroDisciplina', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
+        Route::get('/cadastroDisciplina/{idDisc}', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
+        Route::post('/disciplinaInsertBD', [RegisterController::class, 'storeSubject']);
+        Route::put('/disciplinaUpdateBD/{idDisc}', [RegisterController::class, 'updateSubject']);
+
+        Route::get('/cadastroTopico/{idDisc}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
+        Route::get('/cadastroTopico/{idDisc}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
+        Route::get('/cadastroTopico/{idDisc}/{idTopico}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
+        Route::post('/topicoInsertBD/{idDisc}', [RegisterController::class, 'storeTopic']);
+        Route::put('/topicoUpdateBD/{idDisc}/{idTopico}', [RegisterController::class, 'updateTopic']);
 
         Route::get('/cadastroSubTopico/{idDisciplina}/{idTopico}', 'App\Http\Controllers\RegisterController@registerSubTopic')->name('registerSubTopic');
-        Route::post('/subTopicoInsertBD/{idDisciplina}/{idTopico}', [RegisterController::class, 'storeSubTopic']);
-        Route::get('/cadastroMaterialDidatico/{id}', 'App\Http\Controllers\RegisterController@registerStudyMaterial')->name('registerStudyMaterial');
-        Route::post('/materialDidaticoInsertBD/{id}', [RegisterController::class, 'storeStudyMaterial']);
+        Route::get('/cadastroSubTopico/{idDisciplina}/{idTopico}/{idSubTopico}', 'App\Http\Controllers\RegisterController@registerSubTopic')->name('registerSubTopic');
+        Route::post('/subtopicoInsertBD/{idDisciplina}/{idTopico}', [RegisterController::class, 'storeSubTopic']);
+        Route::put('/subtopicoUpdateBD/{idDisciplina}/{idTopico}/{idSubTopico}', [RegisterController::class, 'updateSubTopico']);
+
+        Route::get('/cadastroMaterialDidatico/{idTopico}', 'App\Http\Controllers\RegisterController@registerStudyMaterial')->name('registerStudyMaterial');
+        Route::get('/cadastroMaterialDidatico/{idTopico}/{idMaterial}', 'App\Http\Controllers\RegisterController@registerStudyMaterial')->name('registerStudyMaterial');
+        Route::post('/materialDidaticoInsertBD/{idTopico}', [RegisterController::class, 'storeStudyMaterial']);
+        Route::put('/materialDidaticoUpdateBD/{idTopico}/{idMaterial}', [RegisterController::class, 'updateStudyMaterial']);
     });
 });
 

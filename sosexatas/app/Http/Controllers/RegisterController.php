@@ -28,31 +28,6 @@ class RegisterController extends Controller
 
     }
 
-    public function updateSubject(Request $request, $id)
-    {
-        //Disciplina::findOrFail($id)->update($request->all());
-
-        Disciplina::findOrFail($id)->update(['nomeDisc' => $request->name]);
-
-        return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
-
-    }
-
-    public function registerTopic($id)
-    {
-        return view('\registerTopic', ['disciplinaID' => $id] );
-    }
-
-    public function registerSubTopic($idDisciplina, $idTopico)
-    {
-        return view('\registerSubTopic', ['disciplinaID' => $idDisciplina, 'topicoId' => $idTopico]);
-    }
-
-    public function registerStudyMaterial($id)
-    {
-        return view('\registerStudyMaterial', ['disciplinaID' => $id]);
-    }
-
     public function storeSubject(Request $request)
     {
 
@@ -63,6 +38,28 @@ class RegisterController extends Controller
         $disciplina->save();
 
         return  redirect("/home")->with('msg', 'Disciplina Adicionada com sucesso!');
+    }
+
+    public function updateSubject(Request $request, $id)
+    {
+        //Disciplina::findOrFail($id)->update($request->all());
+
+        Disciplina::findOrFail($id)->update(['nomeDisc' => $request->name]);
+
+        return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
+
+    }
+
+
+    public function registerTopic($id, $id2 = 0)
+    {
+        if($id2 != 0){
+            $topico = Topico::findOrFail($id2);
+            return view('\registerTopic', ['disciplinaID' => $id, 'topico' => $topico] );
+        }else{
+            return view('\registerTopic', ['disciplinaID' => $id, 'topico' => NULL] );
+        }
+
     }
 
     public function storeTopic( $id, Request $request)
@@ -77,6 +74,28 @@ class RegisterController extends Controller
         return  redirect("/disciplinaShow/{$id}")->with('msg', 'Tópico Adicionado com sucesso!');
     }
 
+    public function updateTopic( $id, $id2, Request $request)
+    {
+        Topico::findOrFail($id2)->update(['nomeTop' => $request->name]);
+
+        //return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
+
+        return  redirect("/disciplinaShow/{$id}")->with('msgEdit', 'Tópico Editado com sucesso!');
+    }
+
+    public function registerSubTopic($idDisciplina, $idTopico, $idSubTopico = 0)
+    {
+        //return view('\registerSubTopic', ['disciplinaID' => $idDisciplina, 'topicoId' => $idTopico]);
+
+        if($idSubTopico != 0){
+            $subtopico = SubTopico::findOrFail($idSubTopico);
+            return view('\registerSubTopic', ['disciplinaID' => $idDisciplina, 'topicoId' => $idTopico, 'subtopico' =>$subtopico] );
+        }else{
+            return view('\registerSubTopic', ['disciplinaID' => $idDisciplina, 'topicoId' => $idTopico, 'subtopico' =>NULL]);
+        }
+
+    }
+
     public function storeSubTopic( $idDisciplina, $idTopico, Request $request)
     {
 
@@ -87,7 +106,28 @@ class RegisterController extends Controller
 
         $subtopico->save();
 
-        return  redirect("/disciplinaShow/{$idDisciplina}")->with('msg', 'Subtopico Adicionado com sucesso!');
+        return  redirect("/disciplinaShow/{$idDisciplina}")->with('msg2', 'Subtopico Adicionado com sucesso!');
+    }
+
+    public function updateSubTopico( $id, $id2, $id3, Request $request)
+    {
+        SubTopico::findOrFail($id3)->update(['nomeSubTop' => $request->name]);
+
+        //return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
+
+        return  redirect("/disciplinaShow/{$id}")->with('msg3', 'SubTópico Editado com sucesso!');
+    }
+
+    public function registerStudyMaterial($id, $id2 = 0)
+    {
+        if($id2 != 0){
+            $material = MaterialDidatico::findOrFail($id2);
+            return view('\registerStudyMaterial', ['disciplinaID' => $id, 'material' => $material]);
+        }else{
+            return view('\registerStudyMaterial', ['disciplinaID' => $id, 'material' => NULL]);
+        }
+
+        //return view('\registerStudyMaterial', ['disciplinaID' => $id]);
     }
 
     public function storeStudyMaterial( $id, Request $request)
@@ -116,11 +156,30 @@ class RegisterController extends Controller
 
 
         $materialDidatico->nome =$request->name;
-        $materialDidatico->endArq =$request->name;
+        $materialDidatico->endArq =$request->arquivo;
         $materialDidatico->fk_Topico_id =$id;
 
-        //$materialDidatico->save();
+        $materialDidatico->save();
 
-        return  redirect("/disciplinaShow/{$id}")->with('msg', 'Material Didático Adicionado com sucesso!');
+        return  redirect("/disciplinaShow/{$id}")->with('msg4', 'Material Didático Adicionado com sucesso!');
     }
+
+
+    public function updateStudyMaterial( $id, $id2, Request $request)
+    {
+        //mudar parametros materialDidatico, nome e local
+
+        //*******  FALTA LÓGICA E VALIDAÇÃO NOME **********************//
+        MaterialDidatico::findOrFail($id2)->update(['nome' => $request->name, 'endArq' => $request->arquivo]);
+
+        return  redirect("/disciplinaShow/{$id}")->with('msg5', 'Material Didático Editado com sucesso!');
+
+        //return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
+
+
+    }
+
+
+
+
 }

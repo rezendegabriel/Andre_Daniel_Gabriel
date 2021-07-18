@@ -45,7 +45,7 @@ class HomeController extends Controller
                     ->orderBy("nomeDisc")->get();
                     return view('\home' ,['disciplina' => $disciplina]);
                 }else{
-                        $disciplina = Disciplina::all();
+                        $disciplina = Disciplina::orderBy("nomeDisc")->get();
 
                         return view('\home' ,['disciplina' => $disciplina]);
                 }
@@ -94,7 +94,7 @@ class HomeController extends Controller
                     ->orderBy("nomeDisc")->get();
                     return view('\home' ,['disciplina' => $disciplina]);
                 }else{
-                    $disciplina = Disciplina::all();
+                    $disciplina = Disciplina::orderBy("nomeDisc")->get();
 
                     return view('\home' ,['disciplina' => $disciplina]);
                 }
@@ -115,7 +115,7 @@ class HomeController extends Controller
     public function showDisciplinas()
     {
 
-        $disciplinas = Disciplina::all();
+        $disciplinas = Disciplina::orderBy("nomeDisc")->get();
 
 
         return view('\home', ['disciplinas' => $disciplinas] );
