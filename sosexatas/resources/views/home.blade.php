@@ -21,7 +21,7 @@
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SOS - EXATAS</title>
+    <title>S.O.S. EXATAS</title>
 <!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="/login/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
@@ -37,17 +37,13 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/login/css/main.css">
-
 <!--===============================================================================================-->
 </head>
 <body>
-
-
-
-	<div class="limiter">
+	<div class = "wrapper">
+        @include('sidenavbard')
 		<div class="container-login100">
 			<div class="wrap card-columns">
-
             @if(session()->get('tipoUsuario') == 0)
                 <a href="/cadastroDisciplina" class="form-btn">Adicionar Disciplina</a> </br>
             @endif
@@ -107,6 +103,10 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="/login/js/main.js"></script>
+<!-- overlayScrollbars -->
+<script src="/login/vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="login/vendor/dist/js/adminlte.min.js"></script>
 
 </body>
 
