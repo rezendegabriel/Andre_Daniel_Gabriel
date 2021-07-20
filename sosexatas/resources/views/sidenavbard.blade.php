@@ -8,7 +8,6 @@
 
     <!-- Barra lateral -->
     <div class = "sidebar">
-        <div class = "os-content-glue" style = "margin: 0px-8px; width: 249px; height: 911px;"></div>
         <!-- Menu -->
         <nav class = "mt-2">
             <ul class = "nav nav-pills nav-sidebar flex-column" data-widget = "treeview" role = "menu" data-accordion = "false">

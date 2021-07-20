@@ -16,18 +16,18 @@
 </html> -->
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang = "pt-br">
 <head>
-
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset = "utf-8">
+	<meta name = "viewport" content = "width = device - width, initial - scale = 1">
     <title>S.O.S. EXATAS</title>
+
 <!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="/login/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/login/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="/login/vendor/animate/animate.css">
 <!--===============================================================================================-->
@@ -38,8 +38,13 @@
 	<link rel="stylesheet" type="text/css" href="/login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/login/css/main.css">
 <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+<!--===============================================================================================-->
+
 </head>
-<body>
+<body class = "hold-transition sidebar-mini sidebar-collapse">
 	<div class = "wrapper">
         @include('sidenavbard')
 		<div class="container-login100">
@@ -103,11 +108,8 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="/login/js/main.js"></script>
-<!-- overlayScrollbars -->
-<script src="/login/vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="login/vendor/dist/js/adminlte.min.js"></script>
-
+<!--===============================================================================================-->
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
 </body>
 
 @if(session('msg'))
