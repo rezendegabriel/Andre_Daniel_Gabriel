@@ -18,6 +18,8 @@ class Disciplina extends Model
 
     public $timestamps = false;
 
+    protected $guarded = [];
+
     use HasFactory;
 
     public function topicos(){

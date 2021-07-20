@@ -15,45 +15,69 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
- Route::get('/', function () {
-     return redirect("/home/login");
- });
+Route::group(['middleware' => 'check.login'], function () { //valida a autenticação
+    //Route::auth();
+    //Route::post('/login',['uses'=>'App\Http\Controllers\HomeController@verificaLogin','as' => 'VerificaLogin']);
+    Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show'])->name('showDisc');
+
+    Route::get('/disciplina/quizz', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz'); //como fazer o acesso dinâmico?
+    //Route::post('/quizz/do', 'App\Http\Controllers\QuizzController@takeQuizz');
+    Route::get('/disciplina/quizz/resultado', 'App\Http\Controllers\SubjectController@showQuizzResult')->name('subject.quizz.result');
+
+    Route::get('/disciplina/ranking', 'App\Http\Controllers\SubjectController@showSubjectRanking')->name('subject.ranking');
+
+    Route::get('/comunidade', 'App\Http\Controllers\CommunityController@showFriends')->name('community');
+    //Route::post('/amigos/do', 'App\Http\Controllers\FriendController@addFriend');
+
+    Route::get('/perfil', 'App\Http\Controllers\ProfileController@showProfile')->name('profile');
+
+    Route::group(['middleware' => ['check.permissao']], function () {
+        // Precisa estar autenticado e for adm
+
+        Route::get('/cadastroDisciplina', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
+        Route::get('/cadastroDisciplina/{idDisc}', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
+        Route::post('/disciplinaInsertBD', [RegisterController::class, 'storeSubject']);
+        Route::put('/disciplinaUpdateBD/{idDisc}', [RegisterController::class, 'updateSubject']);
+
+        Route::get('/cadastroTopico/{idDisc}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
+        Route::get('/cadastroTopico/{idDisc}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
+        Route::get('/cadastroTopico/{idDisc}/{idTopico}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
+        Route::post('/topicoInsertBD/{idDisc}', [RegisterController::class, 'storeTopic']);
+        Route::put('/topicoUpdateBD/{idDisc}/{idTopico}', [RegisterController::class, 'updateTopic']);
+
+        Route::get('/cadastroSubTopico/{idDisciplina}/{idTopico}', 'App\Http\Controllers\RegisterController@registerSubTopic')->name('registerSubTopic');
+        Route::get('/cadastroSubTopico/{idDisciplina}/{idTopico}/{idSubTopico}', 'App\Http\Controllers\RegisterController@registerSubTopic')->name('registerSubTopic');
+        Route::post('/subtopicoInsertBD/{idDisciplina}/{idTopico}', [RegisterController::class, 'storeSubTopic']);
+        Route::put('/subtopicoUpdateBD/{idDisciplina}/{idTopico}/{idSubTopico}', [RegisterController::class, 'updateSubTopico']);
+
+        Route::get('/cadastroMaterialDidatico/{idTopico}', 'App\Http\Controllers\RegisterController@registerStudyMaterial')->name('registerStudyMaterial');
+        Route::get('/cadastroMaterialDidatico/{idTopico}/{idMaterial}', 'App\Http\Controllers\RegisterController@registerStudyMaterial')->name('registerStudyMaterial');
+        Route::post('/materialDidaticoInsertBD/{idTopico}', [RegisterController::class, 'storeStudyMaterial']);
+        Route::put('/materialDidaticoUpdateBD/{idTopico}/{idMaterial}', [RegisterController::class, 'updateStudyMaterial']);
+    });
+});
+
+
+Route::get('/', function () {
+    return redirect("/home/login");
+});
 
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::get('/home/login', 'App\Http\Controllers\HomeController@showLoginForm')->name('home.login');
+Route::get('/logout', 'App\Http\Controllers\HomeController@logout')->name('home.login');
 //Route::post('/home/login/do', 'App\Http\Controllers\HomeController@login')->name('home.login.do');
 Route::post('/doLogin', 'App\Http\Controllers\HomeController@login');
+
 
 Route::get('/home/{id}', 'App\Http\Controllers\HomeController@indexUsuario')->name('home');
 
 Route::get('/cadastroUsuario', 'App\Http\Controllers\RegisterController@registerUser')->name('registerUser');
 
-Route::get('/cadastroDisciplina', 'App\Http\Controllers\RegisterController@registerSubject')->name('registerSubject');
-Route::post('/disciplinaInsertBD', [RegisterController::class, 'storeSubject']);
-
-Route::get('/cadastroTopico/{id}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
-Route::post('/topicoInsertBD/{id}', [RegisterController::class, 'storeTopic']);
-
-Route::get('/cadastroSubTopico/{idDisciplina}/{idTopico}', 'App\Http\Controllers\RegisterController@registerSubTopic')->name('registerSubTopic');
-Route::post('/subTopicoInsertBD/{idDisciplina}/{idTopico}', [RegisterController::class, 'storeSubTopic']);
-
-Route::get('/cadastroMaterialDidatico/{id}', 'App\Http\Controllers\RegisterController@registerStudyMaterial')->name('registerStudyMaterial');
-Route::post('/materialDidaticoInsertBD/{id}', [RegisterController::class, 'storeStudyMaterial']);
 
 
-Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show']);
+
+//Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show'])->name('showDisc');
 
 //Route::get('/disciplina/{$id}', 'App\Http\Controllers\SubjectController@showSubject')->name('subject'); //como fazer o acesso dinâmico?
-
-Route::get('/disciplina/quizz', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz'); //como fazer o acesso dinâmico?
-//Route::post('/quizz/do', 'App\Http\Controllers\QuizzController@takeQuizz');
-Route::get('/disciplina/quizz/resultado', 'App\Http\Controllers\SubjectController@showQuizzResult')->name('subject.quizz.result');
-
-Route::get('/disciplina/ranking', 'App\Http\Controllers\SubjectController@showSubjectRanking')->name('subject.ranking');
-
-Route::get('/comunidade', 'App\Http\Controllers\CommunityController@showFriends')->name('community');
-//Route::post('/amigos/do', 'App\Http\Controllers\FriendController@addFriend');
-
-Route::get('/perfil', 'App\Http\Controllers\ProfileController@showProfile')->name('profile');

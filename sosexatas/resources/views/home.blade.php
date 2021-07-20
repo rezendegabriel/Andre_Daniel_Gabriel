@@ -48,7 +48,11 @@
 		<div class="container-login100">
 			<div class="wrap card-columns">
 
-            <a href="/cadastroDisciplina" class="form-btn">Adicionar Disciplina</a> </br>
+            @if(session()->get('tipoUsuario') == 0)
+                <a href="/cadastroDisciplina" class="form-btn">Adicionar Disciplina</a> </br>
+            @endif
+
+            <a href="/logout" class="form-btn">Sair</a> </br>
 
                 <div class="row">
 
@@ -56,9 +60,22 @@
                     <div class="col-sm-6">
                         <div class="card ">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $disc->nomeDisc}}</h5>
-                                <p class="card-text">Descrição do progresso do aluno(a), a ser configurado.</p>
-                                <a href="/disciplinaShow/{{ $disc->idDisc}}" class="form-btn">Vamos estudar?</a>
+                                @if(session()->get('tipoUsuario') == 0)
+                                    <h5 class="card-title">{{ $disc->nomeDisc}}
+                                    <a href="#"> <button style="float: right; margin-left: 5px;" id="close-image"><img src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png"/></button> </a>
+                                    <a href="/cadastroDisciplina/{{ $disc->idDisc}}"> <button  style="float: right; margin-left: 5px; " id="close-image"><img src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/></button> </a>
+                                    </h5>
+                                    <p class="card-text">Descrição da visualização do adm, a ser configurado.</p>
+                                    <a href="/disciplinaShow/{{ $disc->idDisc}}" style="margin:10px" class="form-btn">Explorar</a>
+
+                                @else
+                                    <h5 class="card-title">{{ $disc->nomeDisc}}
+                                    <button  style="float: right; margin-left: 5px;" id="close-image"><img src="https://img.icons8.com/fluent/20/000000/crown.png"/></button>
+                                    </h5>
+                                    <p class="card-text">Descrição do progresso do aluno(a), a ser configurado.</p>
+                                    <a href="/disciplinaShow/{{ $disc->idDisc}}" class="form-btn">Vamos estudar?</a>
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -95,6 +112,10 @@
 
 @if(session('msg'))
 <script> alert("Disciplina criada com sucesso."); </script>
+@endif
+
+@if(session('msgEdit'))
+<script> alert("Disciplina editada com sucesso."); </script>
 @endif
 
 </html>
