@@ -1,5 +1,3 @@
-<link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
-
 <aside class = "main-sidebar sidebar-dark-primary elevation-4">
     <!-- Logo -->
     <a href = "#" class = "brand-link">
@@ -41,5 +39,3 @@
         </nav>
     </div>
 </aside>
-
-<script src = "https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>

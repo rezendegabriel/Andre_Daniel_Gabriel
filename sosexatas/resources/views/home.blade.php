@@ -1,25 +1,8 @@
-<!-- <!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SOS - EXATAS</title>
-    </head>
-    <body>
-        <h1>Página Inicial contendo os cards de disciplinas</h1>
-        <a href="/disciplina"> Card da disciplina X</a><br>
-        <a href="/cadastroDisciplina">Cadastrar disciplina</a><br>
-        <a href="/comunidade"> Ver minha comunidade</a><br>
-        <a href="/perfil">Ir para o perfil</a>
-    </body>
-</html> -->
-
 <!DOCTYPE html>
-<html lang = "pt-br">
+<html lang="pt-br">
 <head>
-	<meta charset = "utf-8">
-	<meta name = "viewport" content = "width = device - width, initial - scale = 1">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>S.O.S. EXATAS</title>
 
 <!--===============================================================================================-->
@@ -44,48 +27,39 @@
 <!--===============================================================================================-->
 
 </head>
-<body class = "hold-transition sidebar-mini sidebar-collapse">
-	<div class = "wrapper">
+<body class="hold-transition sidebar-mini sidebar-collapse">
+	<div class="wrapper">
         @include('sidenavbard')
 		<div class="container-login100">
 			<div class="wrap card-columns">
             @if(session()->get('tipoUsuario') == 0)
                 <a href="/cadastroDisciplina" class="form-btn">Adicionar Disciplina</a> </br>
             @endif
-
             <a href="/logout" class="form-btn">Sair</a> </br>
-
                 <div class="row">
-
                     @foreach($disciplina as $disc)
                     <div class="col-sm-6">
                         <div class="card ">
                             <div class="card-body">
                                 @if(session()->get('tipoUsuario') == 0)
                                     <h5 class="card-title">{{ $disc->nomeDisc}}
-                                    <a href="#"> <button style="float: right; margin-left: 5px;" id="close-image"><img src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png"/></button> </a>
-                                    <a href="/cadastroDisciplina/{{ $disc->idDisc}}"> <button  style="float: right; margin-left: 5px; " id="close-image"><img src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/></button> </a>
+                                    <a href="#"> <button style="float: right; margin-left: 15px;" id="close-image"><img src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png"/></button> </a>
+                                    <a href="/cadastroDisciplina/{{ $disc->idDisc}}"> <button  style="float: right; margin-left: 15px; " id="close-image"><img src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/></button> </a>
                                     </h5>
                                     <p class="card-text">Descrição da visualização do adm, a ser configurado.</p>
                                     <a href="/disciplinaShow/{{ $disc->idDisc}}" style="margin:10px" class="form-btn">Explorar</a>
-
                                 @else
                                     <h5 class="card-title">{{ $disc->nomeDisc}}
-                                    <button  style="float: right; margin-left: 5px;" id="close-image"><img src="https://img.icons8.com/fluent/20/000000/crown.png"/></button>
+                                    <button  style="float: right; margin-left: 15px;" id="close-image"><img src="https://img.icons8.com/fluent/20/000000/crown.png"/></button>
                                     </h5>
                                     <p class="card-text">Descrição do progresso do aluno(a), a ser configurado.</p>
                                     <a href="/disciplinaShow/{{ $disc->idDisc}}" class="form-btn">Vamos estudar?</a>
                                 @endif
-
                             </div>
                         </div>
                     </div>
-
                     @endforeach
-
                 </div>
-
-
 			</div>
 		</div>
 	</div>
