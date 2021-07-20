@@ -132,17 +132,23 @@ class RegisterController extends Controller
 
     public function storeStudyMaterial( $id, Request $request)
     {
+
+        // var_dump($request->all());
+
+        // var_dump($request->arquivo);
+
+        // var_dump($request->file('arquivo')->getClientOriginalName());
+
+
         $nameFile = null;
 
-        if ($request->hasFile('arquivo') && $request->file('arquivo')->isValid()) {
+         if ($request->hasFile('arquivo') && $request->file('arquivo')->isValid()) {
+             
+             $nameFile = $request->file('arquivo')->getClientOriginalName();
+             
+            //var_dump($$request->file('arquivo'));
 
-            $name = uniqid(date('HisYmd'));
-
-            $extension = $request->image->extension();
-
-            $nameFile = "{$name}.{$extension}";
-
-            $upload = $request->image->storeAs('storage', $nameFile);
+            $upload = $request->file('arquivo')->storeAs('public/arquivos', $nameFile);
 
             if ( !$upload )
                 return redirect()
@@ -150,13 +156,13 @@ class RegisterController extends Controller
                             ->with('error', 'Falha ao fazer upload')
                             ->withInput();
 
-        }
+       }
 
         $materialDidatico = new MaterialDidatico();
 
 
         $materialDidatico->nome =$request->name;
-        $materialDidatico->endArq =$request->arquivo;
+        $materialDidatico->endArq =$nameFile;
         $materialDidatico->fk_Topico_id =$id;
 
         $materialDidatico->save();
@@ -178,8 +184,6 @@ class RegisterController extends Controller
 
 
     }
-
-
 
 
 }

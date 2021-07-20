@@ -20,9 +20,12 @@ Route::group(['middleware' => 'check.login'], function () { //valida a autentica
     //Route::post('/login',['uses'=>'App\Http\Controllers\HomeController@verificaLogin','as' => 'VerificaLogin']);
     Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show'])->name('showDisc');
 
-    Route::get('/disciplina/quizz', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz'); //como fazer o acesso dinâmico?
+    Route::get('/disciplina/quizz', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz'); 
     //Route::post('/quizz/do', 'App\Http\Controllers\QuizzController@takeQuizz');
     Route::get('/disciplina/quizz/resultado', 'App\Http\Controllers\SubjectController@showQuizzResult')->name('subject.quizz.result');
+
+    Route::get('/home/{id}/avatar', 'App\Http\Controllers\HomeController@showAvatar');
+    Route::get('/insereAvatar/{idUsuario}/{idAvatar}', 'App\Http\Controllers\HomeController@selectAvatar');
 
     Route::get('/disciplina/ranking', 'App\Http\Controllers\SubjectController@showSubjectRanking')->name('subject.ranking');
 

@@ -72,7 +72,7 @@
                                     {{$mat->nome}}
                                     @if(session()->get('tipoUsuario') == 0) <a href="#"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png" /> </a> @endif
                                     @if(session()->get('tipoUsuario') == 0) <a href="/cadastroMaterialDidatico/{{ $mat->fk_Topico_id}}/{{$mat->idMat}}"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png" /> </a> @endif
-                                    <a href="{{$mat->endArq}}" download> <button style="float: right; margin-left: 15px; " id="close-image"><img src="https://img.icons8.com/ios-glyphs/15/000000/download-from-cloud--v1.png" /> <a>
+                                    <a href="{{asset("storage/app/public/arquivos/teste.pdf")}}" download target="_blank"> <button style="float: right; margin-left: 15px; " id="close-image"><img src="https://img.icons8.com/ios-glyphs/15/000000/download-from-cloud--v1.png" /> <a>
                                 </td>
                             </tr>
                             @endforeach

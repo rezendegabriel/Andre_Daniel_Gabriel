@@ -27,7 +27,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap">
-				<form class="inputSubject-form" action=@if($material)'/materialDidaticoUpdateBD/{{$disciplinaID}}/{{$material->idMat}}'@else'/materialDidaticoInsertBD/{{$disciplinaID}}' @endif method="POST">
+				<form class="inputSubject-form" enctype= "multipart/form-data" method="POST"  action=@if($material)'/materialDidaticoUpdateBD/{{$disciplinaID}}/{{$material->idMat}}'@else'/materialDidaticoInsertBD/{{$disciplinaID}}' @endif >
                 @csrf <!--===== LARAVEL PRECISA PRO FORM FUNCIONAR ======-->
                 @if($material) @method('PUT') @endif
 					<span class="form-title">
@@ -39,7 +39,7 @@
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" enctype=”multipart/form-data”>
+					<div class="wrap-input100 validate-input">
 						<label>Arquivo:</label>
 						<input type="file" name="arquivo" @if($material) value="{{$material->endArq}}"@endif required/>
 					</div>

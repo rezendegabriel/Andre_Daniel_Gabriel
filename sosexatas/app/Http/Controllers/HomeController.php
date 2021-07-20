@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Disciplina;
 use App\Models\User;
+use App\Models\Avatar;
 
 use Illuminate\Support\Facades\DB;
 
@@ -43,26 +44,34 @@ class HomeController extends Controller
                     ->select('disciplina.*')->whereIn('idDisc', DB::table('realiza')
                     ->select('realiza.fk_Disciplina_id')->where('realiza.fk_Usuario_id', $request->session()->get('idUsuario')))
                     ->orderBy("nomeDisc")->get();
-                    return view('\home' ,['disciplina' => $disciplina]);
+
+                $usuario = User::findOrFail($id);   
+                $avatarId = $usuario->fk_Avatar_id;
+                $request->session()->put('avatar_id', $avatarId);
+                
+                if($avatarId){
+                    $avatar = DB::table('avatar')
+                    ->select('avatar.*')->where('idAvatar', $avatarId)
+                    ->get();
+
+                    return view('\home' ,['disciplina' => $disciplina],  ['avatar' => $avatar]);
+                }
+                
+                return view('\home' ,['disciplina' => $disciplina]);
+
                 }else{
                         $disciplina = Disciplina::orderBy("nomeDisc")->get();
 
                         return view('\home' ,['disciplina' => $disciplina]);
                 }
-            //}else{
-                //return redirect("/home/login");
-            //}
-
-                //return redirect("/home/" + $request->session()->get('idUsuario'));
 
         }
 
-            return redirect("/home/login");
+        return redirect("/home/login");
 
-       }
+    }
 
 
-        //return view('\home', ['disciplina' => $disciplina]);
 
 
     public function showLoginForm()
@@ -83,26 +92,21 @@ class HomeController extends Controller
             if( $request->email == $u->email && $request->pass == $u->senha){
 
                 $_SESSION["idUsuario"] = $u->idUsuario;
+                
                 //Session::put('key', 'value');
                 $request->session()->put('idUsuario', $u->idUsuario); //criando sessão com o idUsuário
                 $request->session()->put('tipoUsuario', $u->tipo); //criando sessão com o tipoUsuario
+                $request->session()->put('nomeUsuario', $u->nome); 
+                $request->session()->put('avatar_id', $u->fk_Avatar_id);
 
-                if($u->tipo == 1){
-                    $disciplina = DB::table('disciplina')
-                    ->select('disciplina.*')->whereIn('idDisc', DB::table('realiza')
-                    ->select('realiza.fk_Disciplina_id')->where('realiza.fk_Usuario_id', $u->idUsuario))
-                    ->orderBy("nomeDisc")->get();
-                    return view('\home' ,['disciplina' => $disciplina]);
-                }else{
-                    $disciplina = Disciplina::orderBy("nomeDisc")->get();
+                //var_dump($u->fk_Avatar_id);
 
-                    return view('\home' ,['disciplina' => $disciplina]);
-                }
-
-            }else{
-                //
+                return redirect()->route('home' , $u->idUsuario);
+              
             }
         }
+
+        return redirect("/home/login");
 
     }
 
@@ -116,9 +120,25 @@ class HomeController extends Controller
     {
 
         $disciplinas = Disciplina::orderBy("nomeDisc")->get();
-
+        echo(session()->all());
 
         return view('\home', ['disciplinas' => $disciplinas] );
     }
+
+    public function showAvatar($id)
+    {
+        $avatar = Avatar::all();
+        return view('\showAvatar', ['avatar' => $avatar]);
+    }
+
+    public function selectAvatar($idUsuario, $idAvatar)
+    {
+
+        User::findOrFail($idUsuario)->update(['fk_Avatar_id' => $idAvatar]);
+
+        return redirect()->route('home' , $idUsuario);
+        
+    }
+
 
 }
