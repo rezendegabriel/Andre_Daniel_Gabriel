@@ -29,16 +29,18 @@
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
 	<div class="wrapper">
-        @include('sidenavbard')
+        @if(session()->get('tipoUsuario') == 0)
+            @include('sideNavBardAdmin')
+        @else
+            @include('sideNavBardUser')
+        @endif
 		<div class="container-login100">
 			<div class="wrap card-columns">
-            @if(session()->get('tipoUsuario') == 0)
-                <a href="/cadastroDisciplina" class="form-btn">Adicionar Disciplina</a> </br>
-            @else
+            @if(session()->get('tipoUsuario') == 1)
                 <div class="row">
                     <div class="col-sm-6">
                         <h5 class="card-title" style="padding: 10%" >
-                            Bem vindo, {{ session()->get('nomeUsuario')}}
+                            Bem vindo, {{session()->get('nomeUsuario')}}
                         </h5>
                     </div>
                     @if(session()->get('avatar_id'))
@@ -54,7 +56,6 @@
                     @endif
             @endif
 
-            
             <div class="row">
                 
                 @foreach($disciplina as $disc)
@@ -84,8 +85,6 @@
                 @endforeach
                 
             </div>
-            
-            <a href="/logout" class="form-btn">Sair</a> </br>
 
 			</div>
 		</div>
