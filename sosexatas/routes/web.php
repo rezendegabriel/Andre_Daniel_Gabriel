@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,7 @@ Route::group(['middleware' => 'check.login'], function () { //valida a autentica
     //Route::post('/login',['uses'=>'App\Http\Controllers\HomeController@verificaLogin','as' => 'VerificaLogin']);
     Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show'])->name('showDisc');
 
-    Route::get('/disciplina/quizz', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz'); 
+    Route::get('/disciplina/quizz', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz');
     //Route::post('/quizz/do', 'App\Http\Controllers\QuizzController@takeQuizz');
     Route::get('/disciplina/quizz/resultado', 'App\Http\Controllers\SubjectController@showQuizzResult')->name('subject.quizz.result');
 
@@ -33,6 +34,8 @@ Route::group(['middleware' => 'check.login'], function () { //valida a autentica
     //Route::post('/amigos/do', 'App\Http\Controllers\FriendController@addFriend');
 
     Route::get('/perfil', 'App\Http\Controllers\ProfileController@showProfile')->name('profile');
+
+
 
     Route::group(['middleware' => ['check.permissao']], function () {
         // Precisa estar autenticado e for adm
@@ -66,6 +69,7 @@ Route::get('/', function () {
 });
 
 
+
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::get('/home/login', 'App\Http\Controllers\HomeController@showLoginForm')->name('home.login');
@@ -77,7 +81,7 @@ Route::post('/doLogin', 'App\Http\Controllers\HomeController@login');
 Route::get('/home/{id}', 'App\Http\Controllers\HomeController@indexUsuario')->name('home');
 
 Route::get('/cadastroUsuario', 'App\Http\Controllers\RegisterController@registerUser')->name('registerUser');
-
+Route::put('/createUser', [UserController::class, 'storeUser']);
 
 
 
