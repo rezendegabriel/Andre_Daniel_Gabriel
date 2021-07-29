@@ -6,11 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 
-function validateUser($erros){
-    return false;
-}
-
-
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -43,27 +39,52 @@ class UserController extends Controller
         $user->senha = $request->pass;
         $user->tipo = 1; // FIXO, SENDO USUARIO PADRAO / ALUNO
         $erros = [];
-
-        //verificar todos os dados
+        $check = true;
+         //verificar todos os dados
         //$user->nomeDisc =$request->name;
 
-        if(validateUser($erros)){ // passou nas verificações
 
-            //$user->save();   //DESCOMENTAR
+
+        //$erros[] = "Teste01";
+       //$erros[] = "Teste02";
+        //VALIDANDO USER
+
+
+        if(DB::table('usuario')->where('cpf', $request->cpf)->count()){
+            $erros[] = "CPF já cadastrado";
+            $check = false;
+        }
+
+        if(DB::table('usuario')->where('nick', $request->nick)->count()){
+            $erros[] = "Nick já cadastrado";
+            $check = false;
+        }
+
+        if(DB::table('usuario')->where('email', $request->email)->count()){
+            $erros[] = "E-mail já cadastrado";
+            $check = false;
+        }
+
+        //throw " ";
+
+        $firstMatchingStudent = DB::table('usuario')->where('cpf', $request->cpf);
+
+
+        $check = false;
+
+        if($check){ // passou nas verificações
+
+            //$user->save();   //DESCOMENTAR //se passou nas verificações, então salvar
             return  redirect("/home/login");
 
         }else{ //não passou, colocar erro
 
             $values = [$request->name, $request->nick, $request->cpf, $request->tel,  $request->email, $request->pass];
 
-
+            //return redirect()->route("/cadastroUsuario", [$values, $erros]);
             return  redirect("/cadastroUsuario")->with(['values' => $values, 'erros' =>  $erros]);
 
         }
-
-
-        //se passou nas verificações, então salvar
-
 
 
     }

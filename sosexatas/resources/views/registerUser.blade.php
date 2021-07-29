@@ -61,33 +61,33 @@
 					</span>
 
                     <div class="wrap-input100 validate-input"  data-validate = "Digite um Nome Completo válido" >
-						<input class="input100" type="text" name="name" placeholder="Nome Completo" value="Teste">
+						<input class="input100" type="text" name="name" placeholder="Nome Completo" @if(session()->get('values')) value='{{Session::get('values')[0]}}' @endif >
 						<span class="focus-input100"></span>
 					</div>
 
                     <div class="wrap-input100 validate-input"  data-validate = "Nick somente com letras e números" >
-						<input class="input100" type="text" name="nick" placeholder="Nick">
+						<input class="input100" type="text" name="nick" placeholder="Nick" @if(session()->get('values')) value='{{Session::get('values')[1]}}' @endif>
 						<span class="focus-input100"></span>
 					</div>
 
                     <div class="wrap-input100 validate-input"  data-validate = "Digite um CPF válido, sem pontos ou traços">
-						<input class="input100" type="text" name="cpf" placeholder="CPF">
+						<input class="input100" type="text" name="cpf" placeholder="CPF" @if(session()->get('values')) value='{{Session::get('values')[2]}}' @endif>
 						<span class="focus-input100"></span>
 					</div>
 
                     <div class="wrap-input100 validate-input" data-validate = "Digite um telefone válido no formato xxxxxxxxxxx" >
-						<input class="input100" type="text" name="tel" placeholder="Telefone">
+						<input class="input100" type="text" name="tel" placeholder="Telefone" @if(session()->get('values')) value='{{Session::get('values')[3]}}' @endif>
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" id="teste" data-validate = "Digite um email válido: ex@abc.xyz">
-						<input class="input100" type="text" id="email1" name="email" placeholder="Email">
+					<div class="wrap-input100 validate-input" data-validate = "Digite um email válido: ex@abc.xyz">
+						<input class="input100" type="text" id="email1" name="email" placeholder="Email" @if(session()->get('values')) value='{{Session::get('values')[4]}}' @endif>
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input"  data-validate = "Digite um email válido: ex@abc.xyz">
                         <div id="msgemail"></div>
-						<input class="input100" type="text" id="email2" name="email" placeholder="Confirme o Email">
+						<input class="input100" type="text" id="email2" name="email" placeholder="Confirme o Email" @if(session()->get('values')) value='{{Session::get('values')[4]}}' @endif>
 						<span class="focus-input100"></span>
 					</div>
 
@@ -111,6 +111,12 @@
 
 					<span class="focus-input100"></span>
 						<span class="symbol-input100" style="color: red;" id="erros">
+                        @if(session()->get('erros'))
+                        @foreach (Session::get('erros') as $av)
+                            {{$av}}  |
+                        @endforeach
+                        @endif
+
 
 						</span>
 					</div>
