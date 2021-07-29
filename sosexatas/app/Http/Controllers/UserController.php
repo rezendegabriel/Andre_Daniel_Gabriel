@@ -65,13 +65,6 @@ class UserController extends Controller
             $check = false;
         }
 
-        //throw " ";
-
-        $firstMatchingStudent = DB::table('usuario')->where('cpf', $request->cpf);
-
-
-        $check = false;
-
         if($check){ // passou nas verificações
 
             //$user->save();   //DESCOMENTAR //se passou nas verificações, então salvar

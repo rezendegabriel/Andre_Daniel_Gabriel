@@ -53,7 +53,7 @@
 				</div>
 
                 <!-- validate-form tirei do form para teste -->
-				<form class="form " name="f1" action="/createUser" method="POST">
+				<form class="form validate-form" name="f1" action="/createUser" method="POST">
                 @csrf <!--===== LARAVEL PRECISA PRO FORM FUNCIONAR ======-->
                 @method('PUT')
 					<span class="form-title">

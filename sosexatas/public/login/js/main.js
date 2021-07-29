@@ -60,7 +60,7 @@
                 return false;
             }
         } else if ($(input).attr('type') == 'nick' || $(input).attr('name') == 'nick') { // validar nick
-            if ($(input).val().trim().match(/^[A-Za-z0-9]*\d+[A-Za-z0-9]*$/) == null) {
+            if ($(input).val().trim().match(/^[A-Za-z0-9-]+$/) == null) {
                 return false;
             }
         } else if ($(input).attr('type') == 'cpf' || $(input).attr('name') == 'cpf') { // validar cpf
@@ -72,7 +72,7 @@
                 return false;
             }
         } else if ($(input).attr('type') == 'tel' || $(input).attr('name') == 'tel') { //validar telefone
-            if ($(input).val().trim().match(/^[1-9]{2}(?:[2-8]|9[1-9])[0-9]{3}[0-9]{4}$/) == null) {
+            if ($(input).val().trim().match(/^[1-9]{11}$/) == null) {
                 return false;
             }
         } else { //demais casos
