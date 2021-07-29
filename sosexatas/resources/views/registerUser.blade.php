@@ -110,7 +110,7 @@
                     <div class="wrap-input100 validate-input" data-validate="Digite uma Senha, ao menos um número e uma letra">
 
 					<span class="focus-input100"></span>
-						<span class="symbol-input100" style="color: red;" id="erros">
+						<span class="" style="color: red" id="erros">
                         @if(session()->get('erros'))
                         @foreach (Session::get('erros') as $av)
                             {{$av}}  |
