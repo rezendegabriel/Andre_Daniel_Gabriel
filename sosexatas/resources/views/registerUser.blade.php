@@ -65,7 +65,7 @@
 						<span class="focus-input100"></span>
 					</div>
 
-                    <div class="wrap-input100 validate-input"  data-validate = "Nick somente com letras e números" >
+                    <div class="wrap-input100 validate-input"  data-validate = "Nick somente com letras e números e traços" >
 						<input class="input100" type="text" name="nick" placeholder="Nick" @if(session()->get('values')) value='{{Session::get('values')[1]}}' @endif>
 						<span class="focus-input100"></span>
 					</div>

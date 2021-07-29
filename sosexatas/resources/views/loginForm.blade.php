@@ -106,5 +106,9 @@
 <!--===============================================================================================-->
 	<script src="/login/js/main.js"></script>
 
+@if(session('msg10'))
+<script> alert("Usuário Cadastrado com sucesso. Bem-vindo! Faça login :)"); </script>
+@endif
+
 </body>
 </html>

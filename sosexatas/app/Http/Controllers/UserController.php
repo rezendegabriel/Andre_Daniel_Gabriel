@@ -67,8 +67,8 @@ class UserController extends Controller
 
         if($check){ // passou nas verificações
 
-            //$user->save();   //DESCOMENTAR //se passou nas verificações, então salvar
-            return  redirect("/home/login");
+            $user->save();   //DESCOMENTAR //se passou nas verificações, então salvar
+            return  redirect("/home/login")->with('msg10', 'Bem-Vindos');
 
         }else{ //não passou, colocar erro
 
