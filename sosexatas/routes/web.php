@@ -60,6 +60,11 @@ Route::group(['middleware' => 'check.login'], function () { //valida a autentica
         Route::get('/cadastroMaterialDidatico/{idTopico}/{idMaterial}', 'App\Http\Controllers\RegisterController@registerStudyMaterial')->name('registerStudyMaterial');
         Route::post('/materialDidaticoInsertBD/{idTopico}', [RegisterController::class, 'storeStudyMaterial']);
         Route::put('/materialDidaticoUpdateBD/{idTopico}/{idMaterial}', [RegisterController::class, 'updateStudyMaterial']);
+
+        Route::get('/cadastroQuiz/{idTop}', 'App\Http\Controllers\RegisterController@registerQuiz')->name('registerQuiz');
+        Route::get('/cadastroQuiz/{idTop}/{idQuiz}', 'App\Http\Controllers\RegisterController@registerQuiz')->name('registerQuiz');
+        Route::post('/quizInsertBD/{idTop}', [RegisterController::class, 'storeQuiz']);
+        Route::put('/quizUpdateBD/{idTop}/{idQuiz}', [RegisterController::class, 'updateQuiz']);
     });
 });
 

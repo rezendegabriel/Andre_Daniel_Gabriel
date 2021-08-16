@@ -126,8 +126,8 @@
                             <tr style="margin:10px" class="subtopic-table">
                                 <td> {{$quiz->nome}}
                                 @if(session()->get('tipoUsuario') == 0) <a href="#"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png"/> </a> @endif
-                                @if(session()->get('tipoUsuario') == 0) <a href="/cadastroSubTopico/{{ $disciplina->idDisc}}/{{ $top->idTop }}/{{$sub->idSubTop}}"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/> </a> @endif
-                                @if(session()->get('tipoUsuario') == 0) <a href="/disciplina/quizz/{{ $disciplina->idDisc}}/{{ $quiz->idQuiz}}"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/emoji/25/000000/video-game-emoji.png"/>/> </a> @endif
+                                @if(session()->get('tipoUsuario') == 0) <a href="/cadastroQuiz/{{ $top->idTop}}/{{  $quiz->idQuiz }}"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/> </a> @endif
+                                @if(session()->get('tipoUsuario') == 0) <a href="/disciplina/quizz/{{ $top->idTop}}/{{ $quiz->idQuiz}}"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/emoji/25/000000/video-game-emoji.png"/>/> </a> @endif
                                 </td>
                             </tr>
                             @endforeach
@@ -139,7 +139,7 @@
 
                             @if(session()->get('tipoUsuario') == 0)
                             <tr>
-                                <td><a href="/cadastroSubTopico/{{ $disciplina->idDisc}}/{{ $top->idTop}}" style="margin:10px" class="form-btn">Cadastrar Quiz</a></td>
+                                <td><a href="/cadastroQuiz/{{ $top->idTop}}" style="margin:10px" class="form-btn">Cadastrar Quiz</a></td>
                             </tr>
                             @endif
 
@@ -184,7 +184,11 @@
 
     @if(session('msg4')) <script> alert("Material Didático criado com sucesso.");  </script>  @endif
 
-    @if(session('msg5')) <script> alert("Material Didático com sucesso."); </script> @endif
+    @if(session('msg5')) <script> alert("Material Didático alterado com sucesso."); </script> @endif
+
+    @if(session('msg15')) <script> alert("Quiz criado com sucesso."); </script> @endif
+
+    @if(session('msg16')) <script> alert("Quiz alterado com sucesso."); </script> @endif
 
 
 

@@ -187,37 +187,39 @@ class RegisterController extends Controller
     }
 
     ### QUIZ ####
-
+    //id = topicoID id2= quizid
     public function registerQuiz($id, $id2 = 0)
     {
         if($id2 != 0){
             $topico = Quiz::findOrFail($id2);
-            return view('\registerTopic', ['disciplinaID' => $id, 'topico' => $topico] );
+            return view('\registerQuiz', ['disciplinaID' => $id, 'topico' => $topico] );
         }else{
-            return view('\registerTopic', ['disciplinaID' => $id, 'topico' => NULL] );
+            return view('\registerQuiz', ['disciplinaID' => $id, 'topico' => NULL] );
         }
 
     }
 
+    //id = topicoID
     public function storeQuiz( $id, Request $request)
     {
-        $topico = new Topico();
+        $topico = new Quiz();
 
-        $topico->nomeTop =$request->name;
-        $topico->fk_Disciplina_id =$id;
+        $topico->nome =$request->name;
+        $topico->fk_Topico_id =$id;
 
         $topico->save();
 
-        return  redirect("/disciplinaShow/{$id}")->with('msg', 'Tópico Adicionado com sucesso!');
+        return  redirect("/disciplinaShow/{$id}")->with('msg15', 'Quiz Adicionado com sucesso!');
     }
 
+    //id = topicoID id2= quizid
     public function updateQuiz( $id, $id2, Request $request)
     {
-        Topico::findOrFail($id2)->update(['nomeTop' => $request->name]);
+        Quiz::findOrFail($id2)->update(['nome' => $request->name]);
 
         //return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
 
-        return  redirect("/disciplinaShow/{$id}")->with('msgEdit', 'Tópico Editado com sucesso!');
+        return  redirect("/disciplinaShow/{$id}")->with('msg16', 'Quiz editado com sucesso!');
     }
 
     ### PERGUNTAS ####
