@@ -44,6 +44,11 @@ class HomeController extends Controller
                     ->select('disciplina.*')->whereIn('idDisc', DB::table('realiza')
                     ->select('realiza.fk_Disciplina_id')->where('realiza.fk_Usuario_id', $request->session()->get('idUsuario')))
                     ->orderBy("nomeDisc")->get();
+                
+                $disc_to_join = DB::table('disciplina')
+                    ->select('disciplina.*')->whereNotIn('idDisc', DB::table('realiza')
+                    ->select('realiza.fk_Disciplina_id')->where('realiza.fk_Usuario_id', $request->session()->get('idUsuario')))
+                    ->orderBy("nomeDisc")->get();
 
                 $usuario = User::findOrFail($id);   
                 $avatarId = $usuario->fk_Avatar_id;
@@ -54,10 +59,10 @@ class HomeController extends Controller
                     ->select('avatar.*')->where('idAvatar', $avatarId)
                     ->get();
 
-                    return view('\home' ,['disciplina' => $disciplina],  ['avatar' => $avatar]);
+                    return view('\home' , ['disciplina' => $disciplina, 'disc_to_join' => $disc_to_join, 'avatar' => $avatar]);
                 }
                 
-                return view('\home' ,['disciplina' => $disciplina]);
+                return view('\home' , ['disciplina' => $disciplina, 'disc_to_join' => $disc_to_join]);
 
                 }else{
                         $disciplina = Disciplina::orderBy("nomeDisc")->get();
@@ -140,5 +145,9 @@ class HomeController extends Controller
         
     }
 
+    public function selectDisciplina($idUsuario, $idDisc) {
+        DB::table('realiza')->update(['fk_Usuario_id' => $idUsuario, 'fk_Disciplina_id' => $idDisc]);
 
+        return redirect()->route('home' , $idUsuario);
+    }
 }

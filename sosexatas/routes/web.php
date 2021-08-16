@@ -34,6 +34,8 @@ Route::group(['middleware' => 'check.login'], function () { //valida a autentica
 
     Route::get('/perfil', 'App\Http\Controllers\ProfileController@showProfile')->name('profile');
 
+    Route::get('/selecionaDisciplina/{idUsuario}/{idDisc}', 'App\Http\Controllers\HomeController@selectDisciplina');
+
     Route::group(['middleware' => ['check.permissao']], function () {
         // Precisa estar autenticado e for adm
 
