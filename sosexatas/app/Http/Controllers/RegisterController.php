@@ -6,6 +6,7 @@ use App\Models\Disciplina;
 use App\Models\Topico;
 use App\Models\Subtopico;
 use App\Models\MaterialDidatico;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Cast\Array_;
 
@@ -143,9 +144,9 @@ class RegisterController extends Controller
         $nameFile = null;
 
          if ($request->hasFile('arquivo') && $request->file('arquivo')->isValid()) {
-             
+
              $nameFile = $request->file('arquivo')->getClientOriginalName();
-             
+
             //var_dump($$request->file('arquivo'));
 
             $upload = $request->file('arquivo')->storeAs('public/arquivos', $nameFile);
@@ -185,5 +186,73 @@ class RegisterController extends Controller
 
     }
 
+    ### QUIZ ####
+
+    public function registerQuiz($id, $id2 = 0)
+    {
+        if($id2 != 0){
+            $topico = Quiz::findOrFail($id2);
+            return view('\registerTopic', ['disciplinaID' => $id, 'topico' => $topico] );
+        }else{
+            return view('\registerTopic', ['disciplinaID' => $id, 'topico' => NULL] );
+        }
+
+    }
+
+    public function storeQuiz( $id, Request $request)
+    {
+        $topico = new Topico();
+
+        $topico->nomeTop =$request->name;
+        $topico->fk_Disciplina_id =$id;
+
+        $topico->save();
+
+        return  redirect("/disciplinaShow/{$id}")->with('msg', 'Tópico Adicionado com sucesso!');
+    }
+
+    public function updateQuiz( $id, $id2, Request $request)
+    {
+        Topico::findOrFail($id2)->update(['nomeTop' => $request->name]);
+
+        //return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
+
+        return  redirect("/disciplinaShow/{$id}")->with('msgEdit', 'Tópico Editado com sucesso!');
+    }
+
+    ### PERGUNTAS ####
+
+
+    public function registerQuestion($id, $id2 = 0)
+    {
+        if($id2 != 0){
+            $topico = Topico::findOrFail($id2);
+            return view('\registerTopic', ['disciplinaID' => $id, 'topico' => $topico] );
+        }else{
+            return view('\registerTopic', ['disciplinaID' => $id, 'topico' => NULL] );
+        }
+
+    }
+
+    public function storeQuestion( $id, Request $request)
+    {
+        $topico = new Topico();
+
+        $topico->nomeTop =$request->name;
+        $topico->fk_Disciplina_id =$id;
+
+        $topico->save();
+
+        return  redirect("/disciplinaShow/{$id}")->with('msg', 'Tópico Adicionado com sucesso!');
+    }
+
+    public function updateQuestion( $id, $id2, Request $request)
+    {
+        Topico::findOrFail($id2)->update(['nomeTop' => $request->name]);
+
+        //return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
+
+        return  redirect("/disciplinaShow/{$id}")->with('msgEdit', 'Tópico Editado com sucesso!');
+    }
 
 }

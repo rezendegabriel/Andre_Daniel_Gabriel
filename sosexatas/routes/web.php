@@ -21,8 +21,8 @@ Route::group(['middleware' => 'check.login'], function () { //valida a autentica
     //Route::post('/login',['uses'=>'App\Http\Controllers\HomeController@verificaLogin','as' => 'VerificaLogin']);
     Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show'])->name('showDisc');
 
-    Route::get('/disciplina/quizz', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz');
-    //Route::post('/quizz/do', 'App\Http\Controllers\QuizzController@takeQuizz');
+    Route::get('/disciplina/quizz/{idDisc}/{idQuiz}', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz');
+
     Route::get('/disciplina/quizz/resultado', 'App\Http\Controllers\SubjectController@showQuizzResult')->name('subject.quizz.result');
 
     Route::get('/home/{id}/avatar', 'App\Http\Controllers\HomeController@showAvatar');
@@ -35,7 +35,7 @@ Route::group(['middleware' => 'check.login'], function () { //valida a autentica
 
     Route::get('/perfil', 'App\Http\Controllers\ProfileController@showProfile')->name('profile');
 
-
+    //Route::get('/quizz/{idDisc}/{idQuiz}/', 'App\Http\Controllers\QuizzController@takeQuizz');
 
     Route::group(['middleware' => ['check.permissao']], function () {
         // Precisa estar autenticado e for adm

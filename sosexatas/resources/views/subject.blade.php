@@ -117,6 +117,34 @@
 
                         </table>
 
+                        <table cellspacing="0">
+                            <tr>
+                                <th>Quizzes</th>
+                            </tr>
+                            @if(count($quizzes[$loop->index]) > 0)
+                            @foreach($quizzes[$loop->index] as $quiz)
+                            <tr style="margin:10px" class="subtopic-table">
+                                <td> {{$quiz->nome}}
+                                @if(session()->get('tipoUsuario') == 0) <a href="#"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png"/> </a> @endif
+                                @if(session()->get('tipoUsuario') == 0) <a href="/cadastroSubTopico/{{ $disciplina->idDisc}}/{{ $top->idTop }}/{{$sub->idSubTop}}"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/> </a> @endif
+                                @if(session()->get('tipoUsuario') == 0) <a href="/disciplina/quizz/{{ $disciplina->idDisc}}/{{ $quiz->idQuiz}}"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/emoji/25/000000/video-game-emoji.png"/>/> </a> @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                            @else
+                            <tr style="margin:10px" class="subtopic-table">
+                                <td>Poxa, não temos nenhum quiz pronto (ainda) :/</td>
+                            </tr>
+                            @endif
+
+                            @if(session()->get('tipoUsuario') == 0)
+                            <tr>
+                                <td><a href="/cadastroSubTopico/{{ $disciplina->idDisc}}/{{ $top->idTop}}" style="margin:10px" class="form-btn">Cadastrar Quiz</a></td>
+                            </tr>
+                            @endif
+
+                        </table>
+
 
 
                     </div>
