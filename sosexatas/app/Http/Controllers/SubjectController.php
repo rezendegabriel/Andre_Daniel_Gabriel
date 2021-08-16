@@ -38,6 +38,13 @@ class SubjectController extends Controller
                 'quizzes' => $quizzes ]);
     }
 
+    public function showTop($id)
+    {
+        $topico = Topico::findOrFail($id);
+        //SubjectController::show();
+        return  redirect("/disciplinaShow/$topico->fk_Disciplina_id");
+    }
+
     public function showQuizz($idDisc, $idQuiz, Request $request)
     {
         return view('\quizz');

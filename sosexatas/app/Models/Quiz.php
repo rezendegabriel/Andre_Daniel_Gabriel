@@ -23,4 +23,8 @@ class Quiz extends Model
     public function pertence(){
         return $this->belongsTo('App\Models\Topico');
     }
+
+    public function perguntas(){
+        return $this->hasMany('App\Models\Pergunta', 'fk_Quiz_id');
+    }
 }

@@ -27,55 +27,63 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap">
-				<form class="inputSubject-form" action=@if($topico)'/quizUpdateBD/{{$disciplinaID}}/{{$topico->idQuiz}}'@else'/quizInsertBD/{{$disciplinaID}}' @endif method="POST">
+				<form class="inputSubject-form" action=@if($topico)'/questionUpdateBD/{{$disciplinaID}}/{{$topico->fk_Quiz_id}}'@else'/questionInsertBD/{{$disciplinaID}}' @endif method="POST">
                 @csrf <!--===== LARAVEL PRECISA PRO FORM FUNCIONAR ======-->
                 @if($topico) @method('PUT') @endif
 					<span class="form-title">
-						@if($topico) Alteração Quiz @else Cadastro de Quiz @endif
+						@if($topico) Alteração de Pergunta @else Cadastro de Pergunta @endif
 					</span>
 
                     <div class="wrap-input100 validate-input" >
-						<input class="input100" type="text" name="name" placeholder="Nome do Quiz" @if($topico) value="{{$topico->nome}}"@endif required>
+						<input class="input100" type="text" name="enunciado" placeholder="Enunciado da Pergunta" @if($topico) value="{{$topico->enunciado}}"@endif required>
 						<span class="focus-input100"></span>
 					</div>
 
-                @if($topico)
-                    <table cellspacing="0">
-                    <tr>
-                        <th>Perguntas</th>
-                    </tr>
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="opc1" placeholder="Opção 01 " @if($topico) value="{{$topico->opc1}}"@endif required>
+						<span class="focus-input100"></span>
+					</div>
 
-                    @if(count($topico->perguntas) > 0)
-                        @foreach($topico->perguntas as $sub)
-                                <tr style="margin:10px" class="subtopic-table">
-                                    <td> {{$sub->enunciado}}
-                                    @if(session()->get('tipoUsuario') == 0) <a href="#"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png"/> </a> @endif
-                                    @if(session()->get('tipoUsuario') == 0) <a href="/cadastroQuestion/{{ $topico->idQuiz}}/{{ $sub->idPerg }}"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/> </a> @endif
-                                    </td>
-                                </tr>
-                        @endforeach
-                    @else
-                            <tr style="margin:10px" class="subtopic-table">
-                                <td>Poxa, não temos perguntas (ainda) :/</td>
-                            </tr>
-                            @endif
-                    </table>
-                @endif
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="opc2" placeholder="Opção 02 " @if($topico) value="{{$topico->opc2}}"@endif required>
+						<span class="focus-input100"></span>
+					</div>
 
-                    <div>
-                        @if($topico) <a href="/cadastroQuestion/{{$topico->idQuiz}}" style="margin:10px" class="form-btn">Cadastrar Pergunta</a> @endif
-                    </div>
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="opc3" placeholder="Opção 03 - Opcional " @if($topico) value="{{$topico->opc3}}"@endif>
+						<span class="focus-input100"></span>
+					</div>
+
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="opc4" placeholder="Opção 04 - Opcional " @if($topico) value="{{$topico->opc4}}"@endif>
+						<span class="focus-input100"></span>
+					</div>
+
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="opc5" placeholder="Opção 05 - Opcional " @if($topico) value="{{$topico->opc15}}"@endif>
+						<span class="focus-input100"></span>
+					</div>
+
+                    <div class="wrap-input100 validate-input" >
+						<input class="txt2" type="radio" name="resposta" value ='1' placeholder="Resposta" @if($topico && $topico->resposta == 1) checked @endif> 01
+                        <input class="txt2" type="radio" name="resposta" value ='2' placeholder="Resposta" @if($topico && $topico->resposta == 2) checked @endif> 02
+                        <input class="txt2" type="radio" name="resposta" value ='3' placeholder="Resposta" @if($topico && $topico->resposta == 3) checked @endif> 03
+                        <input class="txt2" type="radio" name="resposta" value ='4' placeholder="Resposta" @if($topico && $topico->resposta == 4) checked @endif> 04
+                        <input class="txt2" type="radio" name="resposta" value ='5' placeholder="Resposta" @if($topico && $topico->resposta == 5) checked @endif> 05
+						<span class="focus-input100"></span>
+					</div>
+
 
 					<div class="container-form-btn">
                         <button class="form-btn" type="submit">
-                        @if($topico) Alterar Quiz @else Criar Quiz @endif
+                        @if($topico) Alterar Pergunta @else Criar Pergunta @endif
 						</button>
 					</div>
 
 					<div class="text-center p-t-12">
-                        <a class="txt2" href="/disciplinaShowTop/{{$disciplinaID}}">
+                        <a class="txt2" href="/backQuiz/{{$disciplinaID}}">
                         <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
-                        Voltar para tela da Disciplina
+                        Voltar para tela de Alteração do Quiz
                     </a>
                 </div>
 				</form>
@@ -84,11 +92,6 @@
 	</div>
 
 
-@if(session('msg25')) <script> alert("Pergunta criado com sucesso."); </script> @endif
-
-@if(session('msg30')) <script> alert("Teste"); </script> @endif
-
-@if(session('msg26')) <script> alert("Pergunta alterado com sucesso."); </script> @endif
 
 
 <!--===============================================================================================-->

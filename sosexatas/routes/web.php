@@ -45,6 +45,8 @@ Route::group(['middleware' => 'check.login'], function () { //valida a autentica
         Route::post('/disciplinaInsertBD', [RegisterController::class, 'storeSubject']);
         Route::put('/disciplinaUpdateBD/{idDisc}', [RegisterController::class, 'updateSubject']);
 
+        Route::get('/disciplinaShowTop/{id}', [SubjectController::class, 'showTop'])->name('showDisc');
+
         Route::get('/cadastroTopico/{idDisc}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
         Route::get('/cadastroTopico/{idDisc}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
         Route::get('/cadastroTopico/{idDisc}/{idTopico}', 'App\Http\Controllers\RegisterController@registerTopic')->name('registerTopic');
@@ -65,6 +67,14 @@ Route::group(['middleware' => 'check.login'], function () { //valida a autentica
         Route::get('/cadastroQuiz/{idTop}/{idQuiz}', 'App\Http\Controllers\RegisterController@registerQuiz')->name('registerQuiz');
         Route::post('/quizInsertBD/{idTop}', [RegisterController::class, 'storeQuiz']);
         Route::put('/quizUpdateBD/{idTop}/{idQuiz}', [RegisterController::class, 'updateQuiz']);
+
+        Route::get('/backQuiz/{idTop}', 'App\Http\Controllers\RegisterController@backQuiz')->name('registerQuiz');
+        Route::get('/backQuiz/{idTop}/{msg}', 'App\Http\Controllers\RegisterController@backQuiz')->name('registerQuiz');
+
+        Route::get('/cadastroQuestion/{idQuiz}', 'App\Http\Controllers\RegisterController@registerQuestion')->name('registerQuiz');
+        Route::get('/cadastroQuestion/{idQuiz}/{idQustion}', 'App\Http\Controllers\RegisterController@registerQuestion')->name('registerQuiz');
+        Route::post('/questionInsertBD/{idQuiz}', [RegisterController::class, 'storeQuestion']);
+        Route::put('/questionUpdateBD/{idQuiz}/{idQustion}', [RegisterController::class, 'updateQuestion']);
     });
 });
 

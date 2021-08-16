@@ -7,6 +7,7 @@ use App\Models\Topico;
 use App\Models\Subtopico;
 use App\Models\MaterialDidatico;
 use App\Models\Quiz;
+use App\Models\Pergunta;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Cast\Array_;
 
@@ -188,6 +189,19 @@ class RegisterController extends Controller
 
     ### QUIZ ####
     //id = topicoID id2= quizid
+    public function backQuiz($id, $msg = null)
+    {
+
+        $topico = Quiz::findOrFail($id);
+        if($msg)
+            return view('\registerQuiz', ['disciplinaID' => $id, 'topico' => $topico] );
+        elseif($msg == "")
+            return view('\registerQuiz', ['disciplinaID' => $id, 'topico' => $topico] );
+        elseif($msg == "")
+            return view('\registerQuiz', ['disciplinaID' => $id, 'topico' => $topico] );
+    }
+
+
     public function registerQuiz($id, $id2 = 0)
     {
         if($id2 != 0){
@@ -209,7 +223,9 @@ class RegisterController extends Controller
 
         $topico->save();
 
-        return  redirect("/disciplinaShow/{$id}")->with('msg15', 'Quiz Adicionado com sucesso!');
+        $topico2 = Topico::findOrFail($id);
+
+        return  redirect("/disciplinaShow/{$topico2->fk_Disciplina_id}")->with('msg15', 'Quiz Adicionado com sucesso!');
     }
 
     //id = topicoID id2= quizid
@@ -217,9 +233,11 @@ class RegisterController extends Controller
     {
         Quiz::findOrFail($id2)->update(['nome' => $request->name]);
 
+        $topico2 = Topico::findOrFail($id);
+
         //return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
 
-        return  redirect("/disciplinaShow/{$id}")->with('msg16', 'Quiz editado com sucesso!');
+        return  redirect("/disciplinaShow/{$topico2->fk_Disciplina_id}")->with('msg16', 'Quiz editado com sucesso!');
     }
 
     ### PERGUNTAS ####
@@ -228,33 +246,49 @@ class RegisterController extends Controller
     public function registerQuestion($id, $id2 = 0)
     {
         if($id2 != 0){
-            $topico = Topico::findOrFail($id2);
-            return view('\registerTopic', ['disciplinaID' => $id, 'topico' => $topico] );
+            $topico = Pergunta::findOrFail($id2);
+            return view('\registerQuestion', ['disciplinaID' => $id, 'topico' => $topico] );
         }else{
-            return view('\registerTopic', ['disciplinaID' => $id, 'topico' => NULL] );
+            return view('\registerQuestion', ['disciplinaID' => $id, 'topico' => NULL] );
         }
 
     }
 
     public function storeQuestion( $id, Request $request)
     {
-        $topico = new Topico();
+        $topico = new Pergunta();
 
-        $topico->nomeTop =$request->name;
-        $topico->fk_Disciplina_id =$id;
+        $topico->enunciado = $request->enunciado;
+        $topico->opc1 = $request->opc1;
+        $topico->opc2 = $request->opc2;
+        if($request->opc3) $topico->opc3 = $request->opc3;
+        if($request->opc4)$topico->opc4 = $request->opc4;
+        if($request->opc5) $topico->opc5 = $request->opc5;
+        $topico->resposta = $request->resposta;
+        $topico->fk_Quiz_id =$id;
 
         $topico->save();
 
-        return  redirect("/disciplinaShow/{$id}")->with('msg', 'Tópico Adicionado com sucesso!');
+        //Quiz::findOrFail($id);
+
+        return  redirect("/backQuiz/{$id}/Create");
     }
 
     public function updateQuestion( $id, $id2, Request $request)
     {
-        Topico::findOrFail($id2)->update(['nomeTop' => $request->name]);
+        Pergunta::findOrFail($id2)->update([
+            'enunciado' =>  $request->enunciado,
+            'opc1' => $request->opc1,
+            'opc2'=> $request->opc2,
+            'opc3' => $request->opc3 ? $request->opc3 : null,
+            'opc4'=> $request->opc4 ? $request->opc4 : null,
+            'opc5' => $request->opc5 ? $request->opc5 : null,
+            'resposta'=> $request->resposta
+        ]);
 
         //return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
 
-        return  redirect("/disciplinaShow/{$id}")->with('msgEdit', 'Tópico Editado com sucesso!');
+        return  redirect("/backQuiz/{$id}/Update");
     }
 
 }
