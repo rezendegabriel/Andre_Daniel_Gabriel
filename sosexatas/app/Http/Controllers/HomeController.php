@@ -146,8 +146,8 @@ class HomeController extends Controller
     }
 
     public function selectDisciplina($idUsuario, $idDisc) {
-        DB::table('realiza')->update(['fk_Usuario_id' => $idUsuario, 'fk_Disciplina_id' => $idDisc]);
+        DB::table('realiza')->insert(['fk_Usuario_id' => $idUsuario, 'fk_Disciplina_id' => $idDisc, 'desempenho' => 0]);
 
-        return redirect()->route('home' , $idUsuario);
+        return redirect()->route('home', $idUsuario);  
     }
 }
