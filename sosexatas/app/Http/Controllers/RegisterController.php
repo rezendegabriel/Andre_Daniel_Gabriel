@@ -23,6 +23,7 @@ class RegisterController extends Controller
         return view('\editUser');
     }
 
+
     public function registerSubject($id = 0)
     {
         if($id != 0){

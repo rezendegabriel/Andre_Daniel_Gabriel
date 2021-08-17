@@ -39,12 +39,37 @@
 	<link rel="stylesheet" type="text/css" href="/login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/login/css/main.css">
 <!--===============================================================================================-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+<!--===============================================================================================-->
 </head>
-<body>
-	<div class="limiter">
+<body class="hold-transition sidebar-mini sidebar-collapse">
+    <div class="wrapper">
+        @include('sidenavbard')   
 		<div class="container-login100">
-			<div class="wrap">
-				<h1>Bem vindo a sua página de comunidade</h1>
+			<div class="wrap card-columns">
+                <div class="col-sm-12" >
+                    <h2>Bem vindo a sua página de comunidade {{ session()->get('nomeUsuario')}}</h2>
+                </div> 
+               
+                    @foreach($usuarios as $u)
+                    @if(session()->get('idUsuario') != $u->idUsuario && $u->tipo != 0)
+                        <div class="col-sm-12">
+                            <div class="card ">
+                                <div class="card-body">
+                                    <h5>{{ $u->nome}} level {{ $u->level}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    @endif 
+                    
+                    @endforeach
+                
+                
+                <div class="wrap-input100 col-sm-12" >
+                    <input class="input100" type="text" name="amigo" placeholder="Digite o nome ou nick do seu amigo">
+                    <span class="focus-input100"></span>
+                    <a href="/cadastroDisciplina" class="form-btn">Adicionar Amigo</a>
+                </div>
 			</div>
 		</div>
 	</div>

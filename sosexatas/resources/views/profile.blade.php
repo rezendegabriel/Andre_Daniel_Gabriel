@@ -40,7 +40,11 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap">
-				<h1>Olá {{ session()->get('nomeUsuario')}}</h1>
+                <div class="col-sm-6">
+                    <h1>Olá {{ session()->get('nomeUsuario')}}!</h1> </br>
+                    <h4> você está no nível ZERO </h4>
+
+                </div>
                 @if(session()->get('avatar_id'))
                         @foreach ($avatar as $av)
                         <div class="col-sm-6">
@@ -48,11 +52,11 @@
                         </div> 
                         @endforeach
                 @endif
-                <div class="text-center p-t-12">
+                <div class="card-body">
 					<a class="form-btn" href="/comunidade"> Ir para sua página de comunidade </a>
 				</div>
-                <div class="text-center p-t-12">
-					<a class="form-btn" href="/editar"> Editar dados </a>
+                <div class="card-body">
+					<a class="form-btn" href="/editarUsuario"> Editar dados </a>
 				</div>
 			</div>
 		</div>

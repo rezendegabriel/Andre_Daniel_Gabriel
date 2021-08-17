@@ -96,10 +96,10 @@ Route::post('/doLogin', 'App\Http\Controllers\HomeController@login');
 Route::get('/home/{id}', 'App\Http\Controllers\HomeController@indexUsuario')->name('home');
 
 Route::get('/cadastroUsuario', 'App\Http\Controllers\RegisterController@registerUser')->name('registerUser');
-Route::get('/editarUsuario', 'App\Http\Controllers\RegisterController@editUser')->name('editUser');
-
 Route::put('/createUser', [UserController::class, 'storeUser']);
 
+Route::get('/editarUsuario', 'App\Http\Controllers\RegisterController@editUser')->name('editUser');
+Route::put('/editUser', [UserController::class, 'editUser']);
 
 
 //Route::get('/disciplinaShow/{id}', [SubjectController::class, 'show'])->name('showDisc');
