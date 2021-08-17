@@ -82,6 +82,16 @@ class UserController extends Controller
 
     }
 
+    public function editUser(Request $request)
+    {
+        
+        User::findOrFail($request->session()->get('idUsuario'))->update(['nome' => $request->name,'nick' => $request->nick, 'email' => $request->email, 'senha' => $request->pass]);
+        $request->session()->put('nomeUsuario', $request->name);
+
+        return  redirect("/perfil")->with('msg11', 'Dados Alterados com Sucesso');
+
+    }
+
 
 
     /**
