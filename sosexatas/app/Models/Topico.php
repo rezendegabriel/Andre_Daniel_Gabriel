@@ -33,6 +33,10 @@ class Topico extends Model
         return $this->hasMany('App\Models\MaterialDidatico', 'fk_Topico_id');
     }
 
+    public function quizzes(){
+        return $this->hasMany('App\Models\Quiz', 'fk_Topico_id');
+    }
+
 }
 
 
