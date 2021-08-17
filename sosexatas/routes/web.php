@@ -23,7 +23,7 @@ Route::group(['middleware' => 'check.login'], function () { //valida a autentica
 
     Route::get('/disciplina/quizz/{idDisc}/{idQuiz}', 'App\Http\Controllers\SubjectController@showQuizz')->name('subject.quizz');
 
-    Route::get('/disciplina/quizz/resultado', 'App\Http\Controllers\SubjectController@showQuizzResult')->name('subject.quizz.result');
+    Route::put('/result/{idQuiz}', 'App\Http\Controllers\SubjectController@showQuizzResult')->name('subject.quizz.result');
 
     Route::get('/home/{id}/avatar', 'App\Http\Controllers\HomeController@showAvatar');
     Route::get('/insereAvatar/{idUsuario}/{idAvatar}', 'App\Http\Controllers\HomeController@selectAvatar');

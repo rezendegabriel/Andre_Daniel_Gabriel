@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Disciplina;
 use App\Models\Topico;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Cast\Array_;
 
@@ -47,12 +48,22 @@ class SubjectController extends Controller
 
     public function showQuizz($idDisc, $idQuiz, Request $request)
     {
-        return view('\quizz');
+        $topico = Quiz::findOrFail($idQuiz);
+        return view('\quizz',  ['disciplinaID' => $idDisc, 'topico' => $topico]);
     }
 
-    public function showQuizzResult()
+    //$id = id do quiz
+    public function showQuizzResult($id, Request $request)
     {
-        return view('\result');
+        $topico = Quiz::findOrFail($id);
+
+        //echo $request;
+
+        foreach($topico->perguntas as $sub){
+            echo $sub;
+        }
+
+        //return view('\result');
     }
 
     public function showSubjectRanking()

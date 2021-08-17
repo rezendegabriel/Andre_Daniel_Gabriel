@@ -127,7 +127,7 @@
                                 <td> {{$quiz->nome}}
                                 @if(session()->get('tipoUsuario') == 0) <a href="#"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/ios-glyphs/20/000000/delete-sign.png"/> </a> @endif
                                 @if(session()->get('tipoUsuario') == 0) <a href="/cadastroQuiz/{{ $top->idTop}}/{{  $quiz->idQuiz }}"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/material-rounded/20/000000/edit--v1.png"/> </a> @endif
-                                @if(session()->get('tipoUsuario') == 0) <a href="/disciplina/quizz/{{ $top->idTop}}/{{ $quiz->idQuiz}}"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/emoji/25/000000/video-game-emoji.png"/>/> </a> @endif
+                                @if(session()->get('tipoUsuario') == 1) <a href="/disciplina/quizz/{{ $top->idTop}}/{{ $quiz->idQuiz}}"> <img style="float: right; margin-left: 5px;" src="https://img.icons8.com/emoji/25/000000/video-game-emoji.png"/> </a> @endif
                                 </td>
                             </tr>
                             @endforeach
