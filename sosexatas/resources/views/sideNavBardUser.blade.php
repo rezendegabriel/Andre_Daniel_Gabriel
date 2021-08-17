@@ -26,6 +26,12 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a href="/perfil" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Perfil<i class="right fas fa-angle-left"></i></p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/logout" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Logout<i class="right fas fa-angle-left"></i></p>
