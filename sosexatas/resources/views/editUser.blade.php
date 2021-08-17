@@ -1,7 +1,3 @@
-
-
-
-
 <!-- <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -11,8 +7,9 @@
         <title>SOS - EXATAS</title>
     </head>
     <body>
-        <h1>Página da sua comunidade de amigos</h1>
-        <a href="/home">Voltar da home</a>
+        <h1>Página da registro de usuário</h1>
+        <a href="/home/login"> Voltar para tela de login</a><br>
+        <a href="/home"> Cadastrar (chama o método de verificação depois vai pra home)</a>
     </body>
 </html> -->
 
@@ -41,10 +38,83 @@
 <!--===============================================================================================-->
 </head>
 <body>
+	
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap">
-				<h1>Bem vindo a sua página de comunidade</h1>
+				<div class="pic js-tilt" data-tilt>
+					<img src="/login/images/img-01.png" alt="IMG">
+				</div>
+
+				<form class="form validate-form">
+					<span class="form-title">
+						Editar
+					</span>
+
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="name" placeholder="Nome Completo">
+						<span class="focus-input100"></span>
+					</div>
+
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="nick" placeholder="Nick">
+						<span class="focus-input100"></span>
+					</div>
+
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="cpf" placeholder="CPF">
+						<span class="focus-input100"></span>
+					</div>
+
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="end" placeholder="Endereço">
+						<span class="focus-input100"></span>
+					</div>
+
+                    <div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="tel" placeholder="Telefone">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="email" placeholder="Email">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="emailConf" placeholder="Confirme o Email">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="pass" placeholder="Senha">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="passConf" placeholder="Confirme a Senha">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					
+					<div class="container-form-btn">
+						<button class="form-btn">
+							Editar Usuário
+						</button>
+					</div>
+
+					<div class="text-center p-t-12">
+						<a class="txt2" href="/home/login">
+							<i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
+							Voltar para tela de Perfil
+						</a>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
