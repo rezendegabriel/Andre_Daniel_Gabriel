@@ -19,11 +19,13 @@ class SubjectController extends Controller
         $topicos = $disciplina->topicos;
         $subtopicos = [];
         $materiais = [];
+        $quizzes = [];
 
         $i = 0;
         foreach( $topicos as $top){
             $subtopicos[$i] = $top->subtopicos;
             $materiais[$i] = $top->materiais;
+            $quizzes[$i] = $top->quizzes;
             $i++;
             //$subtopicos[$i] = $topicos[1]->subtopicos;
             //$i++;
@@ -32,10 +34,18 @@ class SubjectController extends Controller
         //$topicos = [  ['a','b'], ['c'] ];
 
         return view('\subject', ['disciplina' => $disciplina, 'topicos' => $topicos,
-                'subtopicos' => $subtopicos, 'materiais' => $materiais]);
+                'subtopicos' => $subtopicos, 'materiais' => $materiais,
+                'quizzes' => $quizzes ]);
     }
 
-    public function showQuizz()
+    public function showTop($id)
+    {
+        $topico = Topico::findOrFail($id);
+        //SubjectController::show();
+        return  redirect("/disciplinaShow/$topico->fk_Disciplina_id");
+    }
+
+    public function showQuizz($idDisc, $idQuiz, Request $request)
     {
         return view('\quizz');
     }

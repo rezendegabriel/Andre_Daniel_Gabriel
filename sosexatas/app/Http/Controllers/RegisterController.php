@@ -6,6 +6,8 @@ use App\Models\Disciplina;
 use App\Models\Topico;
 use App\Models\Subtopico;
 use App\Models\MaterialDidatico;
+use App\Models\Quiz;
+use App\Models\Pergunta;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Cast\Array_;
 
@@ -148,9 +150,9 @@ class RegisterController extends Controller
         $nameFile = null;
 
          if ($request->hasFile('arquivo') && $request->file('arquivo')->isValid()) {
-             
+
              $nameFile = $request->file('arquivo')->getClientOriginalName();
-             
+
             //var_dump($$request->file('arquivo'));
 
             $upload = $request->file('arquivo')->storeAs('public/arquivos', $nameFile);
@@ -190,5 +192,108 @@ class RegisterController extends Controller
 
     }
 
+    ### QUIZ ####
+    //id = topicoID id2= quizid
+    public function backQuiz($id, $msg = null)
+    {
+
+        $topico = Quiz::findOrFail($id);
+        if($msg)
+            return view('\registerQuiz', ['disciplinaID' => $id, 'topico' => $topico] );
+        elseif($msg == "")
+            return view('\registerQuiz', ['disciplinaID' => $id, 'topico' => $topico] );
+        elseif($msg == "")
+            return view('\registerQuiz', ['disciplinaID' => $id, 'topico' => $topico] );
+    }
+
+
+    public function registerQuiz($id, $id2 = 0)
+    {
+        if($id2 != 0){
+            $topico = Quiz::findOrFail($id2);
+            return view('\registerQuiz', ['disciplinaID' => $id, 'topico' => $topico] );
+        }else{
+            return view('\registerQuiz', ['disciplinaID' => $id, 'topico' => NULL] );
+        }
+
+    }
+
+    //id = topicoID
+    public function storeQuiz( $id, Request $request)
+    {
+        $topico = new Quiz();
+
+        $topico->nome =$request->name;
+        $topico->fk_Topico_id =$id;
+
+        $topico->save();
+
+        $topico2 = Topico::findOrFail($id);
+
+        return  redirect("/disciplinaShow/{$topico2->fk_Disciplina_id}")->with('msg15', 'Quiz Adicionado com sucesso!');
+    }
+
+    //id = topicoID id2= quizid
+    public function updateQuiz( $id, $id2, Request $request)
+    {
+        Quiz::findOrFail($id2)->update(['nome' => $request->name]);
+
+        $topico2 = Topico::findOrFail($id);
+
+        //return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
+
+        return  redirect("/disciplinaShow/{$topico2->fk_Disciplina_id}")->with('msg16', 'Quiz editado com sucesso!');
+    }
+
+    ### PERGUNTAS ####
+
+
+    public function registerQuestion($id, $id2 = 0)
+    {
+        if($id2 != 0){
+            $topico = Pergunta::findOrFail($id2);
+            return view('\registerQuestion', ['disciplinaID' => $id, 'topico' => $topico] );
+        }else{
+            return view('\registerQuestion', ['disciplinaID' => $id, 'topico' => NULL] );
+        }
+
+    }
+
+    public function storeQuestion( $id, Request $request)
+    {
+        $topico = new Pergunta();
+
+        $topico->enunciado = $request->enunciado;
+        $topico->opc1 = $request->opc1;
+        $topico->opc2 = $request->opc2;
+        if($request->opc3) $topico->opc3 = $request->opc3;
+        if($request->opc4)$topico->opc4 = $request->opc4;
+        if($request->opc5) $topico->opc5 = $request->opc5;
+        $topico->resposta = $request->resposta;
+        $topico->fk_Quiz_id =$id;
+
+        $topico->save();
+
+        //Quiz::findOrFail($id);
+
+        return  redirect("/backQuiz/{$id}/Create");
+    }
+
+    public function updateQuestion( $id, $id2, Request $request)
+    {
+        Pergunta::findOrFail($id2)->update([
+            'enunciado' =>  $request->enunciado,
+            'opc1' => $request->opc1,
+            'opc2'=> $request->opc2,
+            'opc3' => $request->opc3 ? $request->opc3 : null,
+            'opc4'=> $request->opc4 ? $request->opc4 : null,
+            'opc5' => $request->opc5 ? $request->opc5 : null,
+            'resposta'=> $request->resposta
+        ]);
+
+        //return  redirect("/home/" . $request->session()->get('idUsuario') )->with('msgEdit', 'Disciplina Editada com sucesso!');
+
+        return  redirect("/backQuiz/{$id}/Update");
+    }
 
 }
