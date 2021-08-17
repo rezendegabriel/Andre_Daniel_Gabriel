@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28-Jun-2021 às 06:48
+-- Tempo de geração: 22-Jul-2021 às 21:02
 -- Versão do servidor: 10.4.19-MariaDB
 -- versão do PHP: 8.0.7
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `trab_es`
+-- Banco de dados: `sosexatas`
 --
 
 -- --------------------------------------------------------
@@ -45,6 +45,22 @@ CREATE TABLE `avatar` (
   `endImg` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `avatar`
+--
+
+INSERT INTO `avatar` (`idAvatar`, `nome`, `endImg`) VALUES
+(1, 'Linus', 'avatar01.png'),
+(2, 'Guida', 'avatar02.png'),
+(3, 'Sheldon', 'avatar03.png'),
+(4, 'Gauss', 'avatar04.png'),
+(5, 'Kobrinha', 'avatar05.png'),
+(6, 'Gelado', 'avatar06.png'),
+(7, 'Marie', 'avatar07.png'),
+(8, 'Bicudo', 'avatar08.png'),
+(9, 'Aladinha', 'avatar09.png'),
+(10, 'Galileu', 'avatar10.png');
+
 -- --------------------------------------------------------
 
 --
@@ -64,9 +80,11 @@ INSERT INTO `disciplina` (`idDisc`, `nomeDisc`) VALUES
 (1, 'Cálculo 1'),
 (2, 'GASL'),
 (3, 'Algoritmos'),
-(4, 'Teste'),
+(4, 'Cálculo II'),
 (5, 'Teste'),
-(6, 'Teste');
+(6, 'Teste'),
+(7, 'Física I'),
+(8, 'Física II');
 
 -- --------------------------------------------------------
 
@@ -163,6 +181,14 @@ CREATE TABLE `realiza` (
   `desempenho` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `realiza`
+--
+
+INSERT INTO `realiza` (`fk_Usuario_id`, `fk_Disciplina_id`, `desempenho`) VALUES
+(3, 7, 10),
+(3, 1, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -197,7 +223,8 @@ CREATE TABLE `subtopico` (
 INSERT INTO `subtopico` (`idSubTop`, `nomeSubTop`, `fk_Topico_id`) VALUES
 (1, 'Equações', 1),
 (2, 'Inequações', 1),
-(3, 'Equação II Grau', 1);
+(3, 'Equação II Grau', 1),
+(8, 'Análise de diagrama de corpo livre', 4);
 
 -- --------------------------------------------------------
 
@@ -216,8 +243,9 @@ CREATE TABLE `topico` (
 --
 
 INSERT INTO `topico` (`idTop`, `nomeTop`, `fk_Disciplina_id`) VALUES
-(1, 'Capitulo 0', 1),
-(3, 'Capitulo', 1);
+(1, 'Derivada', 1),
+(3, 'Capitulo', 1),
+(4, 'Mecânica clássica', 7);
 
 -- --------------------------------------------------------
 
@@ -233,6 +261,8 @@ CREATE TABLE `usuario` (
   `email` varchar(150) NOT NULL,
   `senha` varchar(50) NOT NULL,
   `tel` varchar(11) NOT NULL,
+  `level` int(11) DEFAULT 0,
+  `xp` bigint(20) DEFAULT 0,
   `rua` varchar(150) DEFAULT NULL,
   `numero` int(11) DEFAULT NULL,
   `complemento` varchar(20) DEFAULT NULL,
@@ -247,10 +277,10 @@ CREATE TABLE `usuario` (
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`idUsuario`, `nome`, `nick`, `cpf`, `email`, `senha`, `tel`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `estado`, `tipo`, `fk_Avatar_id`) VALUES
-(1, 'André', '@Reis', '08354454029', 'teste@gmail.com', '123', '35999999999', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
-(2, 'Daniel', '@Baeta', '30378595040', 'opa@gmail.com', '456', '35999999999', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
-(3, 'Gabriel', '@Rezende', '86531065028', 'galera@gmail.com', '789', '35999999999', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL);
+INSERT INTO `usuario` (`idUsuario`, `nome`, `nick`, `cpf`, `email`, `senha`, `tel`, `level`, `xp`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `estado`, `tipo`, `fk_Avatar_id`) VALUES
+(1, 'André', '@Reis', '08354454029', 'usuario_andre@gmail.com', '123', '35999999999', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
+(2, 'Daniel', '@Baeta', '30378595040', 'usuario_daniel@gmail.com', '456', '35999999999', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
+(3, 'Gabriel', '@Rezende', '86531065028', 'admin_sosexatas@gmail.com', '789', '35999999999', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -371,13 +401,13 @@ ALTER TABLE `usu_quiz_realiza`
 -- AUTO_INCREMENT de tabela `avatar`
 --
 ALTER TABLE `avatar`
-  MODIFY `idAvatar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAvatar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `disciplina`
 --
 ALTER TABLE `disciplina`
-  MODIFY `idDisc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idDisc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `materialdidatico`
@@ -407,13 +437,13 @@ ALTER TABLE `quiz`
 -- AUTO_INCREMENT de tabela `subtopico`
 --
 ALTER TABLE `subtopico`
-  MODIFY `idSubTop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idSubTop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `topico`
 --
 ALTER TABLE `topico`
-  MODIFY `idTop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idTop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
