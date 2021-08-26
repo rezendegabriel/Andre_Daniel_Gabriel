@@ -12,14 +12,14 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
-                        <p>Disciplinas<i class="right fas fa-angle-left"></i></p>
+                        <p style="color: white;">Disciplinas<i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         @foreach($disc_to_join as $disc)
-                            <li class="nav-item">
+                            <li class="nav-item" >
                                 <a href="/selecionaDisciplina/{{session()->get('idUsuario')}}/{{$disc->idDisc}}" onclick="return confirm('Deseja adicionar a disciplina {{$disc->nomeDisc}} + ?');" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>{{$disc->nomeDisc}}</p>
+                                    <p style="color: #87cefa;">{{$disc->nomeDisc}}</p>
                                 </a>
                             </li>
                         @endforeach
@@ -28,13 +28,13 @@
                 <li class="nav-item">
                     <a href="/perfil" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Perfil<i class="right fas fa-angle-left"></i></p>
+                        <p style="color: white;">Perfil<i class="right fas fa-angle-left"></i></p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/logout" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Logout<i class="right fas fa-angle-left"></i></p>
+                        <p style="color: white;">Logout<i class="right fas fa-angle-left"></i></p>
                     </a>
                 </li>
             </ul>

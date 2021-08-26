@@ -70,6 +70,12 @@
                     <span class="focus-input100"></span>
                     <a href="/cadastroDisciplina" class="form-btn">Adicionar Amigo</a>
                 </div>
+                <div class="text-center p-t-12">
+                        <a class="txt2" href="/perfil">
+                            <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
+                            Voltar para tela de perfil
+                        </a>
+                </div>
 			</div>
 		</div>
 	</div>

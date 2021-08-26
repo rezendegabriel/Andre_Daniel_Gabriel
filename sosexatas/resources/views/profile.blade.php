@@ -58,6 +58,12 @@
                 <div class="card-body">
 					<a class="form-btn" href="/editarUsuario"> Editar dados </a>
 				</div>
+				<div class="text-center p-t-12">
+                        <a class="txt2" href="/home/{{session()->get('idUsuario')}}">
+                            <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
+                            Voltar para tela de Disciplinas
+                        </a>
+                </div>
 			</div>
 		</div>
 	</div>
