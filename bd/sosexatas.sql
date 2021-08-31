@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22-Jul-2021 às 21:02
+-- Tempo de geração: 17-Ago-2021 às 18:45
 -- Versão do servidor: 10.4.19-MariaDB
 -- versão do PHP: 8.0.7
 
@@ -80,11 +80,10 @@ INSERT INTO `disciplina` (`idDisc`, `nomeDisc`) VALUES
 (1, 'Cálculo 1'),
 (2, 'GASL'),
 (3, 'Algoritmos'),
-(4, 'Cálculo II'),
-(5, 'Teste'),
-(6, 'Teste'),
-(7, 'Física I'),
-(8, 'Física II');
+(4, 'Física 1'),
+(9, 'Álgebra Linear'),
+(10, 'Lab de ICF'),
+(11, 'Lab de Química');
 
 -- --------------------------------------------------------
 
@@ -98,6 +97,14 @@ CREATE TABLE `materialdidatico` (
   `endArq` varchar(150) NOT NULL,
   `fk_Topico_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `materialdidatico`
+--
+
+INSERT INTO `materialdidatico` (`idMat`, `nome`, `endArq`, `fk_Topico_id`) VALUES
+(1, 'Material Teórico Def. Limites', 'limites.pdf', 3),
+(3, 'Material X', 'teste.txt', 1);
 
 -- --------------------------------------------------------
 
@@ -137,7 +144,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2021_06_27_235826_add_foreign_keys_to_subtopico_table', 0),
 (23, '2021_06_27_235826_add_foreign_keys_to_topico_table', 0),
 (24, '2021_06_27_235826_add_foreign_keys_to_usu_quiz_realiza_table', 0),
-(25, '2021_06_27_235826_add_foreign_keys_to_usuario_table', 0);
+(25, '2021_06_27_235826_add_foreign_keys_to_usuario_table', 0),
+(26, '2014_10_12_000000_create_users_table', 1),
+(27, '2014_10_12_200000_add_two_factor_columns_to_users_table', 1),
+(28, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(29, '2021_06_29_005654_create_sessions_table', 1);
 
 -- --------------------------------------------------------
 
@@ -157,6 +168,15 @@ CREATE TABLE `pergunta` (
   `fk_Quiz_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `pergunta`
+--
+
+INSERT INTO `pergunta` (`idPerg`, `enunciado`, `opc1`, `opc2`, `opc3`, `opc4`, `opc5`, `resposta`, `fk_Quiz_id`) VALUES
+(1, 'Pergunta 02', 'AA', 'BB', 'CC', 'DD', NULL, 4, 1),
+(2, 'Esse enunciado é real?', 'Verdadeiro', 'Falso', NULL, NULL, NULL, 1, 2),
+(3, 'Pergunta 02', 'AA', 'BB', 'CC', 'DD', 'EE', 5, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -166,8 +186,16 @@ CREATE TABLE `pergunta` (
 CREATE TABLE `quiz` (
   `idQuiz` int(11) NOT NULL,
   `nome` varchar(150) NOT NULL,
-  `fk_Subtopico_id` int(11) NOT NULL
+  `fk_Topico_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `quiz`
+--
+
+INSERT INTO `quiz` (`idQuiz`, `nome`, `fk_Topico_id`) VALUES
+(1, 'Teste de Nivelamento', 1),
+(2, 'Teste Rápido', 1);
 
 -- --------------------------------------------------------
 
@@ -186,8 +214,9 @@ CREATE TABLE `realiza` (
 --
 
 INSERT INTO `realiza` (`fk_Usuario_id`, `fk_Disciplina_id`, `desempenho`) VALUES
-(3, 7, 10),
-(3, 1, 10);
+(1, 1, 8),
+(1, 3, 6),
+(1, 2, 7);
 
 -- --------------------------------------------------------
 
@@ -221,10 +250,11 @@ CREATE TABLE `subtopico` (
 --
 
 INSERT INTO `subtopico` (`idSubTop`, `nomeSubTop`, `fk_Topico_id`) VALUES
-(1, 'Equações', 1),
+(1, 'Equações Simples', 1),
 (2, 'Inequações', 1),
 (3, 'Equação II Grau', 1),
-(8, 'Análise de diagrama de corpo livre', 4);
+(8, 'Inequações', 1),
+(9, 'SubTópico H', 6);
 
 -- --------------------------------------------------------
 
@@ -243,9 +273,10 @@ CREATE TABLE `topico` (
 --
 
 INSERT INTO `topico` (`idTop`, `nomeTop`, `fk_Disciplina_id`) VALUES
-(1, 'Derivada', 1),
-(3, 'Capitulo', 1),
-(4, 'Mecânica clássica', 7);
+(1, 'Capitulo 0', 1),
+(3, 'Capitulo 1', 1),
+(6, 'Topico ZA', 1),
+(7, 'Topico AZ', 1);
 
 -- --------------------------------------------------------
 
@@ -278,9 +309,11 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUsuario`, `nome`, `nick`, `cpf`, `email`, `senha`, `tel`, `level`, `xp`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `estado`, `tipo`, `fk_Avatar_id`) VALUES
-(1, 'André', '@Reis', '08354454029', 'usuario_andre@gmail.com', '123', '35999999999', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
-(2, 'Daniel', '@Baeta', '30378595040', 'usuario_daniel@gmail.com', '456', '35999999999', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
-(3, 'Gabriel', '@Rezende', '86531065028', 'admin_sosexatas@gmail.com', '789', '35999999999', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL);
+(1, 'André', '@Reis', '08354454029', 'teste@gmail.com', '123', '35999999999', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
+(2, 'Daniel', '@Baeta', '30378595040', 'opa@gmail.com', '123', '35999999999', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL),
+(3, 'Gabriel', '@Rezende', '86531065028', 'galera@gmail.com', '123', '35999999999', 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
+(5, 'Teste Aopa', 'ReisAB-12', '12345678901', 'eu@eu.com', '1234567a', '11111111111', 5, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL),
+(6, 'Dollynho - Seu amiguinho', 'Te1452-', '13679242603', 'andreluiz.dosreis.mg@gmail.com', '1234567b', '35988524311', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -345,7 +378,7 @@ ALTER TABLE `pergunta`
 --
 ALTER TABLE `quiz`
   ADD PRIMARY KEY (`idQuiz`),
-  ADD KEY `FK_Quiz_2` (`fk_Subtopico_id`);
+  ADD KEY `fk_topico_id` (`fk_Topico_id`);
 
 --
 -- Índices para tabela `realiza`
@@ -407,49 +440,49 @@ ALTER TABLE `avatar`
 -- AUTO_INCREMENT de tabela `disciplina`
 --
 ALTER TABLE `disciplina`
-  MODIFY `idDisc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idDisc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `materialdidatico`
 --
 ALTER TABLE `materialdidatico`
-  MODIFY `idMat` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de tabela `pergunta`
 --
 ALTER TABLE `pergunta`
-  MODIFY `idPerg` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPerg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `idQuiz` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idQuiz` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `subtopico`
 --
 ALTER TABLE `subtopico`
-  MODIFY `idSubTop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idSubTop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `topico`
 --
 ALTER TABLE `topico`
-  MODIFY `idTop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idTop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `usu_quiz_realiza`
@@ -484,7 +517,7 @@ ALTER TABLE `pergunta`
 -- Limitadores para a tabela `quiz`
 --
 ALTER TABLE `quiz`
-  ADD CONSTRAINT `FK_Quiz_2` FOREIGN KEY (`fk_Subtopico_id`) REFERENCES `subtopico` (`idSubTop`);
+  ADD CONSTRAINT `fk_topico_id` FOREIGN KEY (`fk_Topico_id`) REFERENCES `topico` (`idTop`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `realiza`
